@@ -14,7 +14,7 @@ public class CardItem : MonoBehaviour
 
     bool used = false; // Whether the card has been used or not
 
-    public virtual float Use() // Call this method twice: one for positive effect, two for negative effect
+    public virtual float Use() // Applies positive effect to the player
     {
         if (!used)
         {
@@ -25,7 +25,7 @@ public class CardItem : MonoBehaviour
         return card.duration;
     }
 
-    public virtual void NegativeEffect()
+    public virtual void NegativeEffect() // Applies negative effect to the player
     {
         Debug.Log("negative");
         OnNegative?.Invoke(card.negType);

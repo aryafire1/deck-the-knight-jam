@@ -43,13 +43,7 @@ public class CardManager : MonoBehaviour
 
     Dictionary<CardItem, int> cardList = new Dictionary<CardItem, int>();
 
-    bool timer = true;
-
-    void Start()
-    {
-        
-
-    }
+    bool timer = true; // Makes sure we can't spam card activations
 
     public bool Add(CardItem newCard) // Adds new card that player collects
     {
@@ -94,25 +88,6 @@ public class CardManager : MonoBehaviour
         }
     }
 
-    #region Card Effects
-
-    public void Shield()
-    {
-        Debug.Log("shield");
-    }
-
-    public void Speed()
-    {
-        Debug.Log("speed");
-    }
-
-    public void Slow()
-    {
-        Debug.Log("slow");
-    }
-
-    #endregion
-
     void Update() {
         this.transform.Translate(Input.GetAxis("Horizontal") * Time.deltaTime,0,0);
 
@@ -141,8 +116,28 @@ public class CardManager : MonoBehaviour
     private IEnumerator WaitForEffectToEnd(CardItem playedCard, float duration) // Do the negative effect after the positive effect
     {
         yield return new WaitForSeconds(duration);
-        playedCard.NegativeEffect();
+        playedCard.NegativeEffect(); // Does negative effect for the card
         timer = true;
-        Remove(playedCard);
+        Remove(playedCard); // Removes card from inventory
     }
+
+    #region Card Effects
+    // Make sure the method has the same name as the cardType name in the Card scriptable object
+
+    public void Shield()
+    {
+        Debug.Log("shield");
+    }
+
+    public void Speed()
+    {
+        Debug.Log("speed");
+    }
+
+    public void Slow()
+    {
+        Debug.Log("slow");
+    }
+
+    #endregion
 }

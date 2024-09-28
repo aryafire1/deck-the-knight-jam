@@ -17,10 +17,10 @@ public class CardCollectable : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (manager != null && manager.Add(cardItem))
+        if (manager != null && manager.Add(cardItem)) // Makes sure the player has an inventory object and they don't have too many cards
         {
             Debug.Log("Picked up " + cardItem.card.cardName);
-            Destroy(gameObject);
+            Destroy(gameObject); // Destroys object
         }
     }
 }

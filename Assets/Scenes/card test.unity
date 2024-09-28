@@ -399,6 +399,7 @@ GameObject:
   - component: {fileID: 1587876171}
   - component: {fileID: 1587876174}
   - component: {fileID: 1587876175}
+  - component: {fileID: 1587876176}
   m_Layer: 0
   m_Name: Triangle
   m_TagString: Card
@@ -555,6 +556,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2bf4621efdfd3df43b13910f40c502ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1587876176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1587876170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f13836ed64154ed469045aad6b4b7c49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   card: {fileID: 11400000, guid: dd13ec4ac7e615b44904e080859beb73, type: 2}
