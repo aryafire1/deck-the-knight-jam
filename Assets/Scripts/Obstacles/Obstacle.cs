@@ -8,15 +8,30 @@ public class Obstacle : MonoBehaviour
     public float speed = 10.0f;
     public Vector3 target;
     public bool isMoving = false;
+    public int orbType = 0;//0 no orb, 1 meteorite, 2 Chromatic orb
+    private Player player;
+  
 
     void Start()
     {
-        target = transform.parent.position;
+        if (orbType == 1 || orbType == 2){
+            player = FindObjectOfType<Player>();
+            Vector3 temp = player.transform.position;
+            target = temp;
+        }
+        else{
+            target = transform.parent.position;
+        }
+        
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (orbType == 2){
+            target = player.transform.position;
+            StartCoroutine(Disappear(6.0f));
+        }
         if (isMoving)
         {
             transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
@@ -29,8 +44,7 @@ public class Obstacle : MonoBehaviour
             Vector3 temp = transform.position;
             temp.y = temp.y/2;
             transform.position = temp;
-            //dispear after 1 second
-            StartCoroutine(Disappear());
+            StartCoroutine(Disappear(1.0f));
         }
         
     }
@@ -39,11 +53,14 @@ public class Obstacle : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             Debug.Log("Player hit obstacle");
+            if (isMoving){
+                Destroy(gameObject);
+            }
         }
     }
-    IEnumerator Disappear()
+    IEnumerator Disappear(float time)
     {
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(time);
         Destroy(gameObject);
     }
 }

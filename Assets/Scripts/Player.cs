@@ -14,18 +14,14 @@ public class Player : MonoBehaviour
     public float dashCooldown = 1.0f;
     public float dashTimer = 0.0f;
     private bool isGrounded = false;
-
-
-
-    // Start is called before the first frame update
+    public Animator anim;
     void Start()
     {
-        
+        anim = GetComponent<Animator>();
     }
-
-    // Update is called once per frame
     void Update()
     {
+        anim.SetFloat("SpeedR", 1f);
         Vector3 move = new Vector3(0, 0, 0);
         bool jump = false;
         if (Input.GetKey(keys2[0]))
@@ -33,7 +29,7 @@ public class Player : MonoBehaviour
             jump = true;
             if (isGrounded)
             {
-                gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 5), ForceMode2D.Impulse);
+                gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 5.5f), ForceMode2D.Impulse);
                 isGrounded = false;
             }
         }
@@ -48,10 +44,13 @@ public class Player : MonoBehaviour
         if (Input.GetKey(keys2[2]))
         {
             move.x = -1;
+            anim.SetFloat("SpeedR", 0.7f);
+            
         }
         if (Input.GetKey(keys2[3]))
         {
             move.x = 1;
+            anim.SetFloat("SpeedR", 1.5f);
         }
         dashTimer += Time.deltaTime;
         dash(move, jump);
@@ -97,7 +96,7 @@ public class Player : MonoBehaviour
     }
     public void OnCollisionStay2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Ground")
+        if (collision.gameObject.tag == "Ground" && collision.gameObject.transform.position.y+0.8f < transform.position.y)
         {
             isGrounded = true;
         }
