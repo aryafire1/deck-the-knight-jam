@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Search;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class CardManager : MonoBehaviour
 {
@@ -98,6 +100,25 @@ public class CardManager : MonoBehaviour
         }
     }
 
+    #region Card Effects
+
+    public void Shield()
+    {
+        Debug.Log("shield");
+    }
+
+    public void Speed()
+    {
+        Debug.Log("speed");
+    }
+
+    public void Slow()
+    {
+        Debug.Log("slow");
+    }
+
+    #endregion
+
     void Update() {
         this.transform.Translate(Input.GetAxis("Horizontal") * Time.deltaTime,0,0);
 
@@ -113,10 +134,19 @@ public class CardManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.T)) {
             foreach(Card card in cardList.Keys)
             {
-                card.Use();
-                Debug.Log($"Card {card} used");
+                UnityAction cardAction = (UnityAction)Delegate.CreateDelegate(typeof(UnityAction), this, card.posType.ToString()); // Gets card effect name, matches it with card effect method
+                card.OnPositive += delegate { cardAction(); }; // Actually makes the code run for positive effect
+                UnityAction negCardAction = (UnityAction)Delegate.CreateDelegate(typeof(UnityAction), this, card.negType.ToString()); // Gets card effect name, matches it with card effect method
+                card.OnNegative += delegate { negCardAction(); }; // Actually makes the code run for negative effect
+                StartCoroutine(WaitForEffectToEnd(card, card.Use())); // Waits for effect to end
+                Debug.Log($"Card {card.cardName} used");
             }
-
         }
+    }
+
+    private IEnumerator WaitForEffectToEnd(Card playedCard, float duration) // Do the negative effect after the positive effect
+    {
+        yield return new WaitForSeconds(duration);
+        playedCard.NegativeEffect();
     }
 }
