@@ -8,13 +8,6 @@ public class Spawner : MonoBehaviour
     public float spawnRate = 5.0f;
     public float spawnTimer = 0.0f;
     public bool moveObstacle = false;
-
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
         spawnTimer += Time.deltaTime;

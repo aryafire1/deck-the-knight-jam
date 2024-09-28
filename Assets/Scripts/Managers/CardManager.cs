@@ -41,11 +41,13 @@ public class CardManager : MonoBehaviour
 
     Dictionary<Card, int> cardList = new Dictionary<Card, int>();
 
+    /*
     Type1 type1 = new Type1();
     Type2 type2 = new Type2();
     Type3 type3 = new Type3();
     Type4 type4 = new Type4();
     Type5 type5 = new Type5();
+    */
 
     void Start()
     {
@@ -112,6 +114,7 @@ public class CardManager : MonoBehaviour
             foreach(Card card in cardList.Keys)
             {
                 card.Use();
+                Debug.Log($"Card {card} used");
             }
 
         }
