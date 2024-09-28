@@ -10,6 +10,8 @@ public class Obstacle : MonoBehaviour
     public bool isMoving = false;
     public int orbType = 0;//0 no orb, 1 meteorite, 2 Chromatic orb
     private Player player;
+    public int damage = 1;
+    public float disappearTime = 0.0f;
   
 
     void Start()
@@ -18,11 +20,18 @@ public class Obstacle : MonoBehaviour
             player = FindObjectOfType<Player>();
             Vector3 temp = player.transform.position;
             target = temp;
+            transform.rotation = pointToPlayer();
         }
         else{
             target = transform.parent.position;
+            transform.parent = null;
         }
         
+    }
+    Quaternion pointToPlayer(){
+        Vector3 vectorToTarget = player.transform.position - transform.position;
+        float angle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg;
+        return Quaternion.Euler(new Vector3(0, 0, angle+90));
     }
 
     // Update is called once per frame
@@ -39,12 +48,9 @@ public class Obstacle : MonoBehaviour
             {
                 Destroy(gameObject);
             }
-        }
-        else{
-            Vector3 temp = transform.position;
-            temp.y = temp.y/2;
-            transform.position = temp;
-            StartCoroutine(Disappear(1.0f));
+            if(disappearTime > 0){
+                StartCoroutine(Disappear(disappearTime));
+            }
         }
         
     }
@@ -53,6 +59,7 @@ public class Obstacle : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             Debug.Log("Player hit obstacle");
+            //other.gameObject.GetComponent<Player>().takeDamage(damage);
             if (isMoving){
                 Destroy(gameObject);
             }

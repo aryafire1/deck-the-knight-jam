@@ -148,6 +148,8 @@ MonoBehaviour:
   target: {x: 0, y: 0, z: 0}
   isMoving: 0
   orbType: 0
+  damage: 1
+  disappearTime: 0
 --- !u!1 &3090847665208936745
 GameObject:
   m_ObjectHideFlags: 0

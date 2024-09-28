@@ -102,6 +102,8 @@ MonoBehaviour:
   target: {x: 0, y: 0, z: 0}
   isMoving: 1
   orbType: 2
+  damage: 1
+  disappearTime: 0
 --- !u!58 &18964136526658962
 CircleCollider2D:
   m_ObjectHideFlags: 0

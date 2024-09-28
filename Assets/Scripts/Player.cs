@@ -14,6 +14,8 @@ public class Player : MonoBehaviour
     public float dashCooldown = 1.0f;
     public float dashTimer = 0.0f;
     private bool isGrounded = false;
+    public float invulTime= 1.0f;
+    public float invulTimer= 0.0f;
     public Animator anim;
     void Start()
     {
@@ -22,7 +24,9 @@ public class Player : MonoBehaviour
     void Update()
     {
         anim.SetFloat("SpeedR", 1f);
+        
         Vector3 move = new Vector3(0, 0, 0);
+        invulTimer -= Time.deltaTime;
         bool jump = false;
         if (Input.GetKey(keys2[0]))
         {
@@ -31,6 +35,7 @@ public class Player : MonoBehaviour
             {
                 gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 5.5f), ForceMode2D.Impulse);
                 isGrounded = false;
+                anim.SetBool("isGrounded", false);
             }
         }
         if (Input.GetKey(keys2[1]))
@@ -43,13 +48,13 @@ public class Player : MonoBehaviour
         }
         if (Input.GetKey(keys2[2]))
         {
-            move.x = -1;
+            move.x = -1f;
             anim.SetFloat("SpeedR", 0.7f);
             
         }
         if (Input.GetKey(keys2[3]))
         {
-            move.x = 1;
+            move.x = 1f;
             anim.SetFloat("SpeedR", 1.5f);
         }
         dashTimer += Time.deltaTime;
@@ -57,37 +62,43 @@ public class Player : MonoBehaviour
         transform.parent.position += move * speed * Time.deltaTime;
     }
     public void dash(Vector3 move, bool jump){
-        if(dashTimer >= dashCooldown && Input.GetKey(KeyCode.Space)){
-            if (jump){
-            Vector3 temp = positions[0].position;
-            if (move.x == -1){
-                temp.x = positions[2].position.x;
+        if (dashTimer >= dashCooldown && Input.GetKey(KeyCode.Space))
+        {
+            Vector3 tempPosition = positions[0].position;
+            if (jump)
+            {
+                tempPosition.x = (move.x == -1) ? positions[2].position.x : positions[3].position.x;
+                anim.SetBool("isGrounded", false);
             }
-            else if (move.x == 1){
-                temp.x = positions[3].position.x;
+            else if (move.x != 0)
+            {
+                tempPosition = (move.x == -1) ? positions[2].position : positions[3].position;
             }
-            transform.parent.position = temp;
-            }
-            else if (move.x == -1){
-                Vector3 temp = positions[2].position;
-                temp.x = positions[2].position.x;
-                transform.parent.position = temp;
-            }
-            else if (move.x == 1){
-                Vector3 temp = positions[3].position;
-                temp.x = positions[3].position.x;
-                transform.parent.position = temp;
-
-            }
+            transform.parent.position = tempPosition;
             dashTimer = 0.0f;
         }
     }
     public void takeDamage(int damage)
     {
-        health -= damage;
-        if (health <= 0)
+        if (invulTimer <= 0.0f)
         {
-            Destroy(gameObject);
+            health -= damage;
+            invulTimer = invulTime;
+            if (health <= 0)
+            {
+                Destroy(gameObject);
+            }
+            StartCoroutine(Flash());
+        }
+    }
+    IEnumerator Flash()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            GetComponent<SpriteRenderer>().enabled = false;
+            yield return new WaitForSeconds(0.1f);
+            GetComponent<SpriteRenderer>().enabled = true;
+            yield return new WaitForSeconds(0.1f);
         }
     }
     public void addScore(int points)
@@ -99,6 +110,7 @@ public class Player : MonoBehaviour
         if (collision.gameObject.tag == "Ground" && collision.gameObject.transform.position.y+0.8f < transform.position.y)
         {
             isGrounded = true;
+            anim.SetBool("isGrounded", true);
         }
     }
 }
