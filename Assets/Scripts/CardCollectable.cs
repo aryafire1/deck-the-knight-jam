@@ -4,20 +4,22 @@ using UnityEngine;
 
 public class CardCollectable : MonoBehaviour
 {
-    public Card card;
+    CardItem cardItem;
 
     CardManager manager;
 
     // Start is called before the first frame update
     void Start()
     {
+        cardItem = GetComponent<CardItem>();
         manager = CardManager.Singleton; // Gets the card manager
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (manager != null && manager.Add(card))
+        if (manager != null && manager.Add(cardItem))
         {
+            Debug.Log("Picked up " + cardItem.card.cardName);
             Destroy(gameObject);
         }
     }

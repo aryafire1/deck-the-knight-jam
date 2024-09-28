@@ -20,9 +20,6 @@ public class Card : ScriptableObject
         Neg4 = 9,
     }
 
-    public UnityAction<CardType> OnPositive;
-    public UnityAction<CardType> OnNegative;
-
     public CardType posType = CardType.Speed;
     public CardType negType = CardType.Slow;
     public string cardName = "";
@@ -30,24 +27,4 @@ public class Card : ScriptableObject
     public float duration = 0;
     [Tooltip("The magnitude of effect (Ex: how much health recovered)")]
     public float effectAmount = 0;
-
-    public bool used = false; // Whether the card has been used or not
-
-    public virtual float Use() // Call this method twice: one for positive effect, two for negative effect
-    {
-        Debug.Log("used");
-        if (!used)
-        {
-            used = true;
-            Debug.Log("positive");
-            OnPositive?.Invoke(posType);
-        }
-        return duration;
-    }
-
-    public virtual void NegativeEffect()
-    {
-            Debug.Log("negative");
-            OnNegative?.Invoke(negType);
-    }
 }

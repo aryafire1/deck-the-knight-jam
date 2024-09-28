@@ -41,7 +41,7 @@ public class CardManager : MonoBehaviour
 
     public int space = 0;
 
-    Dictionary<Card, int> cardList = new Dictionary<Card, int>();
+    Dictionary<CardItem, int> cardList = new Dictionary<CardItem, int>();
 
     bool timer = true;
 
@@ -51,7 +51,7 @@ public class CardManager : MonoBehaviour
 
     }
 
-    public bool Add(Card newCard) // Adds new card that player collects
+    public bool Add(CardItem newCard) // Adds new card that player collects
     {
         if (cardList.ContainsKey(newCard) && cardList[newCard] >= space) // If the player has too many of the same cards, don't add new card
         {
@@ -72,7 +72,7 @@ public class CardManager : MonoBehaviour
         return true;
     }
 
-    public void Remove(Card newCard) // Removes card upon usage
+    public void Remove(CardItem newCard) // Removes card upon usage
     {
         if (cardList[newCard] == 1) // Clears card from inventory if all cards used up
         {
@@ -118,7 +118,7 @@ public class CardManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F)) {
             string result = "List contents: ";
-            foreach (Card card in cardList.Keys)
+            foreach (CardItem card in cardList.Keys)
             {
                 result += card.name + ", ";
             }
@@ -127,18 +127,18 @@ public class CardManager : MonoBehaviour
 
         if (timer && Input.GetKeyDown(KeyCode.T)) {
             timer = false;
-            foreach(Card card in cardList.Keys)
+            foreach(CardItem card in cardList.Keys)
             {
-                UnityAction cardAction = (UnityAction)Delegate.CreateDelegate(typeof(UnityAction), this, card.posType.ToString()); // Gets card effect name, matches it with card effect method
+                UnityAction cardAction = (UnityAction)Delegate.CreateDelegate(typeof(UnityAction), this, card.card.posType.ToString()); // Gets card effect name, matches it with card effect method
                 card.OnPositive += delegate { cardAction(); }; // Actually makes the code run for positive effect
-                UnityAction negCardAction = (UnityAction)Delegate.CreateDelegate(typeof(UnityAction), this, card.negType.ToString()); // Gets card effect name, matches it with card effect method
+                UnityAction negCardAction = (UnityAction)Delegate.CreateDelegate(typeof(UnityAction), this, card.card.negType.ToString()); // Gets card effect name, matches it with card effect method
                 card.OnNegative += delegate { negCardAction(); }; // Actually makes the code run for negative effect
                 StartCoroutine(WaitForEffectToEnd(card, card.Use())); // Waits for effect to end
             }
         }
     }
 
-    private IEnumerator WaitForEffectToEnd(Card playedCard, float duration) // Do the negative effect after the positive effect
+    private IEnumerator WaitForEffectToEnd(CardItem playedCard, float duration) // Do the negative effect after the positive effect
     {
         yield return new WaitForSeconds(duration);
         playedCard.NegativeEffect();
