@@ -239,7 +239,7 @@ Transform:
   m_GameObject: {fileID: 139253148}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8.18, y: -5.4000006, z: 0}
+  m_LocalPosition: {x: 4.81, y: -5.4000006, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -576,7 +576,7 @@ GameObject:
   - component: {fileID: 1119270951}
   m_Layer: 0
   m_Name: Square
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -687,8 +687,8 @@ Transform:
   m_GameObject: {fileID: 1119270950}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.3163, y: -3.9931, z: 0}
-  m_LocalScale: {x: 18.48748, y: 3.4221876, z: 1}
+  m_LocalPosition: {x: -0.0167, y: -3.9931, z: 0}
+  m_LocalScale: {x: 17.888485, y: 3.4221876, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -968,7 +968,7 @@ Transform:
   m_GameObject: {fileID: 1973639980}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.99, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

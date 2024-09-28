@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -12,6 +13,7 @@ public class Player : MonoBehaviour
     public KeyCode[] keys2 = { KeyCode.W, KeyCode.S, KeyCode.A, KeyCode.D };
     public float dashCooldown = 1.0f;
     public float dashTimer = 0.0f;
+    private bool isGrounded = false;
 
 
 
@@ -25,69 +27,38 @@ public class Player : MonoBehaviour
     void Update()
     {
         Vector3 move = new Vector3(0, 0, 0);
-        /*if (Input.GetKey(keys[0]))
-        {
-            Vector3 temp = positions[0].position;
-            temp.x = transform.position.x;
-            transform.position = temp;
-
-        }
-        if (Input.GetKey(keys[1]))
-        {
-            Vector3 temp = positions[1].position;
-            temp.x = transform.position.x;
-            transform.position = temp;
-        }
-        if (Input.GetKey(keys[2]))
-        {
-            Vector3 temp = positions[2].position;
-            temp.y = transform.position.y;
-            transform.position = temp;
-        }
-        if (Input.GetKey(keys[3]))
-        {
-            Vector3 temp = positions[3].position;
-            temp.y = transform.position.y;
-            transform.position = temp;
-        }*/
         bool jump = false;
         if (Input.GetKey(keys2[0]))
         {
             jump = true;
-            
+            if (isGrounded)
+            {
+                gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 5), ForceMode2D.Impulse);
+                isGrounded = false;
+            }
         }
         if (Input.GetKey(keys2[1]))
         {
-            move.y = -1;
+            if (!isGrounded)
+            {
+                move.y = -3;
+            }
 
         }
         if (Input.GetKey(keys2[2]))
         {
             move.x = -1;
-            if (Input.GetKey(KeyCode.Space)&& dashTimer >= dashCooldown)
-            {
-                Vector3 temp = positions[2].position;
-                transform.parent.position = temp;
-                dashTimer = 0.0f;
-            }
         }
         if (Input.GetKey(keys2[3]))
         {
             move.x = 1;
-
-            if (Input.GetKey(KeyCode.Space)&& dashTimer >= dashCooldown)
-            {
-                Vector3 temp = positions[3].position;
-                transform.parent.position = temp;
-                dashTimer = 0.0f;
-            }
         }
         dashTimer += Time.deltaTime;
         dash(move, jump);
         transform.parent.position += move * speed * Time.deltaTime;
     }
     public void dash(Vector3 move, bool jump){
-        if(dashTimer >= dashCooldown){
+        if(dashTimer >= dashCooldown && Input.GetKey(KeyCode.Space)){
             if (jump){
             Vector3 temp = positions[0].position;
             if (move.x == -1){
@@ -110,9 +81,25 @@ public class Player : MonoBehaviour
 
             }
             dashTimer = 0.0f;
-
         }
-        
-
+    }
+    public void takeDamage(int damage)
+    {
+        health -= damage;
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+    public void addScore(int points)
+    {
+        score += points;
+    }
+    public void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Ground")
+        {
+            isGrounded = true;
+        }
     }
 }

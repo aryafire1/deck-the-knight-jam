@@ -18,7 +18,8 @@ public class Spawner : MonoBehaviour
     void Update()
     {
         spawnTimer += Time.deltaTime;
-        if (spawnTimer >= spawnRate)
+        float random = spawnRate+Random.Range(-2.0f, 2.0f);
+        if (spawnTimer >= random)
         {
             GameObject newObstacle = Instantiate(obstaclePrefab, transform.position, Quaternion.identity);
             newObstacle.GetComponent<Obstacle>().isMoving = moveObstacle;
