@@ -31,10 +31,11 @@ public class Card : ScriptableObject
     [Tooltip("The magnitude of effect (Ex: how much health recovered)")]
     public float effectAmount = 0;
 
-    private bool used = false; // Whether the card has been used or not
+    public bool used = false; // Whether the card has been used or not
 
     public virtual float Use() // Call this method twice: one for positive effect, two for negative effect
     {
+        Debug.Log("used");
         if (!used)
         {
             used = true;

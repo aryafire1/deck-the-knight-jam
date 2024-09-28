@@ -557,7 +557,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bf4621efdfd3df43b13910f40c502ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 11400000, guid: 05987d4fa62f2de4c82a3dfb8c541abf, type: 2}
+  card: {fileID: 11400000, guid: dd13ec4ac7e615b44904e080859beb73, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

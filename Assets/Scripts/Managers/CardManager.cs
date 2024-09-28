@@ -43,13 +43,7 @@ public class CardManager : MonoBehaviour
 
     Dictionary<Card, int> cardList = new Dictionary<Card, int>();
 
-    /*
-    Type1 type1 = new Type1();
-    Type2 type2 = new Type2();
-    Type3 type3 = new Type3();
-    Type4 type4 = new Type4();
-    Type5 type5 = new Type5();
-    */
+    bool timer = true;
 
     void Start()
     {
@@ -131,7 +125,8 @@ public class CardManager : MonoBehaviour
             Debug.Log(result);
         }
 
-        if (Input.GetKeyDown(KeyCode.T)) {
+        if (timer && Input.GetKeyDown(KeyCode.T)) {
+            timer = false;
             foreach(Card card in cardList.Keys)
             {
                 UnityAction cardAction = (UnityAction)Delegate.CreateDelegate(typeof(UnityAction), this, card.posType.ToString()); // Gets card effect name, matches it with card effect method
@@ -139,7 +134,6 @@ public class CardManager : MonoBehaviour
                 UnityAction negCardAction = (UnityAction)Delegate.CreateDelegate(typeof(UnityAction), this, card.negType.ToString()); // Gets card effect name, matches it with card effect method
                 card.OnNegative += delegate { negCardAction(); }; // Actually makes the code run for negative effect
                 StartCoroutine(WaitForEffectToEnd(card, card.Use())); // Waits for effect to end
-                Debug.Log($"Card {card.cardName} used");
             }
         }
     }
@@ -148,5 +142,7 @@ public class CardManager : MonoBehaviour
     {
         yield return new WaitForSeconds(duration);
         playedCard.NegativeEffect();
+        timer = true;
+        Remove(playedCard);
     }
 }

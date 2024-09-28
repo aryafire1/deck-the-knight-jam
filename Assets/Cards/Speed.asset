@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   posType: 0
   negType: 6
-  cardName: 
-  duration: 0
+  cardName: Speed
+  duration: 3
   effectAmount: 0
-  posEffect: 0
