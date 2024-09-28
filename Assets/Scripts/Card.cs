@@ -22,19 +22,23 @@ public class Card : ScriptableObject
     public CardType posType = CardType.Speed;
     public CardType negType = CardType.Slow;
     public string cardName = "";
-    public float duration = 0; // The duration of the effect (Ex: how long the shield lasts)
-    public float effectAmount = 0; // The magnitude of effect (Ex: how much health recovered)
+    [Tooltip("The duration of the effect (Ex: how long the shield lasts)")]
+    public float duration = 0;
+    [Tooltip("The magnitude of effect (Ex: how much health recovered)")]
+    public float effectAmount = 0;
+    [Tooltip("Whether or not the positive effect has been granted or not yet")]
+    public bool posEffect = false;
 
-    public virtual void Use()
+    public virtual float Use() // Call this method twice: one for positive effect, two for negative effect
     {
-        int random = Random.Range(0, 2);
-        if (random == 0)
+        if (!posEffect)
         {
-            Debug.Log("Positive");
+            Debug.Log("positive");
         }
         else
         {
-            Debug.Log("Negative");
+            Debug.Log("negative");
         }
+        return duration;
     }
 }
