@@ -210,7 +210,7 @@ MonoBehaviour:
   isMoving: 0
   orbType: 0
   damage: 1
-  disappearTime: 1.5
+  disappearTime: 2.4
 --- !u!61 &6305074086825992643
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -218,7 +218,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8781264229312723725}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:

@@ -30,7 +30,7 @@ public class Spawner : MonoBehaviour
             }
             else if (randomizeX){
                 
-                transform.position = new Vector3(originalParetnPosition.x+Random.Range(2f, 22f), transform.position.y, transform.position.z);
+                transform.position = new Vector3(originalParetnPosition.x+Random.Range(10f, 22f), transform.position.y, transform.position.z);
                 
             }
             GameObject newObstacle = Instantiate(obstaclePrefab, transform.position, Quaternion.identity);

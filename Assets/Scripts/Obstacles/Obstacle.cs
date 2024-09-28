@@ -49,6 +49,7 @@ public class Obstacle : MonoBehaviour
                 Destroy(gameObject);
             }
             if(disappearTime > 0){
+
                 StartCoroutine(Disappear(disappearTime));
             }
         }
@@ -58,8 +59,8 @@ public class Obstacle : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            Debug.Log("Player hit obstacle");
-            //other.gameObject.GetComponent<Player>().takeDamage(damage);
+            
+            other.gameObject.GetComponent<Player>().takeDamage(damage);
             if (isMoving){
                 Destroy(gameObject);
             }
@@ -67,7 +68,12 @@ public class Obstacle : MonoBehaviour
     }
     IEnumerator Disappear(float time)
     {
-        yield return new WaitForSeconds(time);
+        gameObject.GetComponent<BoxCollider2D>().enabled = false;
+        yield return new WaitForSeconds(1f);
+        gameObject.GetComponent<BoxCollider2D>().enabled = true;
+        yield return new WaitForSeconds(time-1f);
+        gameObject.GetComponent<BoxCollider2D>().enabled = false;
+        yield return new WaitForSeconds(0.2f);
         Destroy(gameObject);
     }
 }
