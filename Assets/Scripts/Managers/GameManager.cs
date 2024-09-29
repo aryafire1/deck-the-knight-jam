@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     public bool isGameOver = false;
     public bool bossFight = false;
 
+    public Wizard wizard;
     public SpawnerMk2 spawner;
     public GameObject prefabFireball;
     public GameObject box;
@@ -73,7 +74,7 @@ public class GameManager : MonoBehaviour
         bossFight = true;
         spellSlots = maxSpellSlots;
         transform.GetChild(0).gameObject.SetActive(true);
-        spawner.ManualSpawn(prefabFireball);
+        wizard.StartFight();
         //spawner.spawnRate = 3.5f;
     }
     public void StopBossFight(){

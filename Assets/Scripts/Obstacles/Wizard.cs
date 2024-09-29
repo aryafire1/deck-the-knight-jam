@@ -13,15 +13,35 @@ public class Wizard : MonoBehaviour
     public float attackRate = 5f;
     public float attackMod = 2f;
 
+    [Header("Attacks")]
+    public GameObject prefabFireball;
+    public GameObject prefabLightning;
+    public GameObject prefabMeteor;
+
+    SpawnerMk2 spawnerMk2;
+    bool canAttack = false;
+
     public void Start()
     {
         player = FindObjectOfType<Player>();
         prevX = player.transform.position.x;
         animator = GetComponent<Animator>();
+        spawnerMk2 = SpawnerMk2.Singleton;
     }
+
+    public void StartFight()
+    {
+        canAttack = true;
+        FireballAttack();
+    }
+
     public void Update()
     {
-        float atkFlux = Random.Range(-attackMod, attackMod);
+        if (canAttack)
+        {
+            canAttack = false;
+            float atkFlux = Random.Range(-attackMod, attackMod);
+        }
 
 
         transform.position = Vector3.MoveTowards(transform.position, spawner.transform.position, 2 * Time.deltaTime);
@@ -46,11 +66,19 @@ public class Wizard : MonoBehaviour
         StartCoroutine(AttackAnimation(1));
     }
 
+    void FireballAttack()
+    {
+        spawnerMk2 = SpawnerMk2.Singleton;
+        spawnerMk2.ManualSpawn(prefabFireball);
+    }
+
     IEnumerator AttackAnimation(float attackDelay)
     {
-
+        FireballAttack();
         animator.SetBool("isAttacking", true);
         yield return new WaitForSeconds(0.6f);
         animator.SetBool("isAttacking", false);
+        yield return new WaitForSeconds(attackDelay - 0.6f);
+        canAttack = true;
     }
 }

@@ -4,6 +4,22 @@ using UnityEngine;
 
 public class SpawnerMk2 : MonoBehaviour
 {
+    #region Singleton
+
+    public static SpawnerMk2 Singleton;
+
+    private void Awake()
+    {
+        if (Singleton != null)
+        {
+            Debug.LogWarning("More than one instance of spawnerMk2 found!");
+            return;
+        }
+        Singleton = this;
+    }
+
+    #endregion
+
     public List<GameObject> obstacles = new List<GameObject>();
     public Transform destroyer;
 
@@ -32,7 +48,7 @@ public class SpawnerMk2 : MonoBehaviour
             canSpawnCard = false;
         }
 
-        if (wizard)
+        if (wizard.isActiveAndEnabled)
         {
             GameObject newObstacle = Instantiate(wizardRoom, transform.position, Quaternion.identity);
             Scroller obstacle = newObstacle.GetComponent<Scroller>();
