@@ -38,6 +38,7 @@ public class CardManager : MonoBehaviour
 
     public delegate void OnCardChanged(); // When called, calls every method subscribed. Used to update inventory UI
     public OnCardChanged onCardChangedCallback;
+    public Wizard wizard;
 
     public int space = 0;
 
@@ -154,13 +155,20 @@ public class CardManager : MonoBehaviour
     }
     public void Stun(Card card)
     {
-        player.changeSpeed(1.5f, card.duration);
+        wizard.canAttack = false;
+        StartCoroutine(StunEnd(card.duration));
 
         Debug.Log("stun");
     }
+    IEnumerator StunEnd(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        wizard.canAttack = true;
+    }
+
     public void Gamble(Card card)
     {
-        //Player.speed = Player.speed * 2;
+        GameManager.manager.score += 20;
 
         Debug.Log("gamble");
     }
@@ -185,15 +193,24 @@ public class CardManager : MonoBehaviour
     }
     public void WizStun(Card card)
     {
-        //Player.speed = Player.speed * 2;
+        player.dashCooldown = card.duration;
 
         Debug.Log("wizStun");
     }
+
     public void WizGamble(Card card)
     {
-        //Player.speed = Player.speed * 2;
+        int originalDmg = wizard.damage;
+        wizard.damage *= 2;
+        StartCoroutine(WizGambleEnd(card.duration, originalDmg));
 
         Debug.Log("wizGamble");
+    }
+
+    IEnumerator WizGambleEnd(float duration, int originalDmg)
+    {
+        yield return new WaitForSeconds(duration);
+        wizard.damage = originalDmg;
     }
 
     #endregion

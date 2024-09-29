@@ -65,11 +65,13 @@ public class SpawnerMk2 : MonoBehaviour
         }
     }
 
-    public void ManualSpawn(GameObject obstacle)
+    public void ManualSpawn(GameObject obstacle, int damage)
     {
         GameObject newObstacle = Instantiate(obstacle, transform.position, Quaternion.identity);
         Scroller scroller = newObstacle.GetComponent<Scroller>();
         scroller.Initialize(destroyer, false);
+        ObstacleMk2 fireball = newObstacle.transform.GetComponentInChildren<ObstacleMk2>();
+        fireball.damage = damage;
     }
 
     IEnumerator WaitToSpawn(float size, float speed)

@@ -14,12 +14,13 @@ public class Wizard : MonoBehaviour
     public float attackMod = 2f;
 
     [Header("Attacks")]
+    public int damage = 1;
     public GameObject prefabFireball;
     public GameObject prefabLightning;
     public GameObject prefabMeteor;
 
     SpawnerMk2 spawnerMk2;
-    bool canAttack = false;
+    public bool canAttack = false;
 
     public void Start()
     {
@@ -69,12 +70,15 @@ public class Wizard : MonoBehaviour
     void FireballAttack()
     {
         spawnerMk2 = SpawnerMk2.Singleton;
-        spawnerMk2.ManualSpawn(prefabFireball);
+        spawnerMk2.ManualSpawn(prefabFireball, damage);
     }
 
     IEnumerator AttackAnimation(float attackDelay)
     {
-        FireballAttack();
+        if (canAttack)
+        {
+            FireballAttack();
+        }
         animator.SetBool("isAttacking", true);
         yield return new WaitForSeconds(0.6f);
         animator.SetBool("isAttacking", false);

@@ -59,8 +59,6 @@ public class GameManager : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Escape)){
             PauseGame();
         }
-        
-
     }
     
     public static void ChangeSpellSlot(int num){
@@ -71,10 +69,10 @@ public class GameManager : MonoBehaviour
         }
     }
     public void StartBossFight(){
-        bossFight = true;
         spellSlots = maxSpellSlots;
         transform.GetChild(0).gameObject.SetActive(true);
         wizard.StartFight();
+        bossFight = true;
         //spawner.spawnRate = 3.5f;
     }
     public void StopBossFight(){
