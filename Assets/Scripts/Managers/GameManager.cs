@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     public int score = 40;
     private float scoreTimer = 0.0f;
     public int scoreBoss = 50;
-    public int highScore = 0;
+    public static int highScore = 0;
     public bool isPaused = false;
     public bool isGameOver = false;
     public bool bossFight = false;
@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour
     public GameObject endGameMenu;
     public Text highScoreText;
     public Text scoreText;
+    public Slider musicSlider;
+    public AudioSource Audios;
     public int maxSpellSlots = 30;
     [SerializeField]
     public static int spellSlots = 30;
@@ -32,6 +34,8 @@ public class GameManager : MonoBehaviour
         manager = this;
         endGameMenu.SetActive(false);
         pauseMenu.SetActive(false);
+        Audios = transform.GetComponent<AudioSource>();
+        Audios.volume = musicSlider.value;
     }
 
     // Update is called once per frame
@@ -96,6 +100,7 @@ public class GameManager : MonoBehaviour
             else{
                 Time.timeScale = 1;
                 pauseMenu.SetActive(false);
+                Audios.volume = musicSlider.value;
             }
         }
     }
