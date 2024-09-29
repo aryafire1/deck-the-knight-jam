@@ -41,7 +41,7 @@ public class CardManager : MonoBehaviour
 
     public int space = 0;
 
-    Dictionary<CardItem, int> cardList = new Dictionary<CardItem, int>();
+    List<CardItem> cardList = new List<CardItem>();
 
     bool timer = true; // Makes sure we can't spam card activations
 
@@ -54,19 +54,14 @@ public class CardManager : MonoBehaviour
 
     public bool Add(CardItem newCard) // Adds new card that player collects
     {
-        if (cardList.Keys.Count >= space) // If the player has too many cards, don't add new card
+        if (cardList.Count >= space) // If the player has too many cards, don't add new card
         {
             Debug.Log("Not enough room for this card");
             return false;
         }
-
-        if (cardList.ContainsKey(newCard)) // If the player already has some of this card
+        else
         {
-            cardList[newCard]++;
-        }
-        else // Collect card for the first time
-        {
-            cardList.Add(newCard, 1);
+            cardList.Add(newCard);
         }
 
         CallbackMethod(); // Update UI
@@ -75,13 +70,9 @@ public class CardManager : MonoBehaviour
 
     public void Remove(CardItem newCard) // Removes card upon usage
     {
-        if (cardList[newCard] == 1) // Clears card from inventory if all cards used up
+        if (cardList.Contains(newCard)) // Clears card from inventory if all cards used up
         {
             cardList.Remove(newCard);
-        }
-        else // Removes 1 from stockpile of cards
-        {
-            cardList[newCard]--;
         }
 
         CallbackMethod(); // Update UI
@@ -102,7 +93,7 @@ public class CardManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F))
         {
             string result = "List contents: ";
-            foreach (CardItem card in cardList.Keys)
+            foreach (CardItem card in cardList)
             {
                 result += card.name + ", ";
             }
@@ -112,7 +103,7 @@ public class CardManager : MonoBehaviour
         if (timer && Input.GetKeyDown(KeyCode.T))
         {
             timer = false;
-            foreach (CardItem card in cardList.Keys)
+            foreach (CardItem card in cardList)
             {
                 UnityAction<CardItem> cardAction = (UnityAction<CardItem>)Delegate.CreateDelegate(typeof(UnityAction<CardItem>), this, card.card.posType.ToString()); // Gets card effect name, matches it with card effect method
                 card.OnPositive += delegate { cardAction(card); }; // Actually makes the code run for positive effect
@@ -134,13 +125,6 @@ public class CardManager : MonoBehaviour
     #region Card Effects
     // Make sure the method has the same name as the cardType name in the Card scriptable object
 
-    public void Shield(CardItem card)
-    {
-
-        player.becomeInvul(card.card.duration);
-
-        Debug.Log("shield");
-    }
 
     public void Attack(CardItem card)
     {
@@ -149,11 +133,62 @@ public class CardManager : MonoBehaviour
         Debug.Log("speed");
     }
 
+    public void Shield(CardItem card)
+    {
+
+        player.becomeInvul(card.card.duration);
+
+        Debug.Log("shield");
+    }
+    public void Health(CardItem card)
+    {
+        //Player.speed = Player.speed * 2;
+
+        Debug.Log("health");
+    }
+    public void Stun(CardItem card)
+    {
+        //Player.speed = Player.speed * 2;
+
+        Debug.Log("stun");
+    }
+    public void Gamble(CardItem card)
+    {
+        //Player.speed = Player.speed * 2;
+
+        Debug.Log("gamble");
+    }
+    public void Anger(CardItem card)
+    {
+        //Player.speed = Player.speed * 2;
+
+        Debug.Log("anger");
+    }
+
     public void Slow(CardItem card)
     {
         //Player.speed = Player.speed * 0.5f;
 
         Debug.Log("slow");
+    }
+
+    public void WizHeal(CardItem card)
+    {
+        //Player.speed = Player.speed * 2;
+
+        Debug.Log("wizHeal");
+    }
+    public void WizStun(CardItem card)
+    {
+        //Player.speed = Player.speed * 2;
+
+        Debug.Log("wizStun");
+    }
+    public void WizGamble(CardItem card)
+    {
+        //Player.speed = Player.speed * 2;
+
+        Debug.Log("wizGamble");
     }
 
     #endregion
