@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using static UnityEngine.UIElements.UxmlAttributeDescription;
 
 [CreateAssetMenu(fileName = "New Card", menuName = "Game Jam/Card")]
 public class Card : ScriptableObject
@@ -19,6 +20,8 @@ public class Card : ScriptableObject
         WizStun = 8,
         WizGamble = 9,
     }
+    public UnityAction<CardType> OnPositive;
+    public UnityAction<CardType> OnNegative;
 
     public CardType posType = CardType.Attack;
     public CardType negType = CardType.Slow;
@@ -30,4 +33,17 @@ public class Card : ScriptableObject
     
     [Tooltip("The magnitude of effect (Ex: how much health recovered)")]
     public float effectAmount = 0;
+
+    public virtual float Use() // Applies positive effect to the player
+    {
+        Debug.Log("positive");
+        OnPositive?.Invoke(posType);
+        return duration;
+    }
+
+    public virtual void NegativeEffect() // Applies negative effect to the player
+    {
+        Debug.Log("negative");
+        OnNegative?.Invoke(negType);
+    }
 }

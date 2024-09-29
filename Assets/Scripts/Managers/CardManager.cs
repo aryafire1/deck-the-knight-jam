@@ -41,7 +41,7 @@ public class CardManager : MonoBehaviour
 
     public int space = 0;
 
-    List<CardItem> cardList = new List<CardItem>();
+    public List<Card> cardList = new List<Card>();
 
     bool timer = true; // Makes sure we can't spam card activations
 
@@ -52,7 +52,7 @@ public class CardManager : MonoBehaviour
         player = GetComponent<Player>();
     }
 
-    public bool Add(CardItem newCard) // Adds new card that player collects
+    public bool Add(Card newCard) // Adds new card that player collects
     {
         if (cardList.Count >= space) // If the player has too many cards, don't add new card
         {
@@ -68,7 +68,7 @@ public class CardManager : MonoBehaviour
         return true;
     }
 
-    public void Remove(CardItem newCard) // Removes card upon usage
+    public void Remove(Card newCard) // Removes card upon usage
     {
         if (cardList.Contains(newCard)) // Clears card from inventory if all cards used up
         {
@@ -93,9 +93,9 @@ public class CardManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F))
         {
             string result = "List contents: ";
-            foreach (CardItem card in cardList)
+            foreach (Card card in cardList)
             {
-                result += card.name + ", ";
+                result += card.cardName + ", ";
             }
             Debug.Log(result);
         }
@@ -103,18 +103,18 @@ public class CardManager : MonoBehaviour
         if (timer && Input.GetKeyDown(KeyCode.T))
         {
             timer = false;
-            foreach (CardItem card in cardList)
+            foreach (Card card in cardList)
             {
-                UnityAction<CardItem> cardAction = (UnityAction<CardItem>)Delegate.CreateDelegate(typeof(UnityAction<CardItem>), this, card.card.posType.ToString()); // Gets card effect name, matches it with card effect method
+                UnityAction<Card> cardAction = (UnityAction<Card>)Delegate.CreateDelegate(typeof(UnityAction<Card>), this, card.posType.ToString()); // Gets card effect name, matches it with card effect method
                 card.OnPositive += delegate { cardAction(card); }; // Actually makes the code run for positive effect
-                UnityAction<CardItem> negCardAction = (UnityAction<CardItem>)Delegate.CreateDelegate(typeof(UnityAction<CardItem>), this, card.card.negType.ToString()); // Gets card effect name, matches it with card effect method
+                UnityAction<Card> negCardAction = (UnityAction<Card>)Delegate.CreateDelegate(typeof(UnityAction<Card>), this, card.negType.ToString()); // Gets card effect name, matches it with card effect method
                 card.OnNegative += delegate { negCardAction(card); }; // Actually makes the code run for negative effect
                 StartCoroutine(WaitForEffectToEnd(card, card.Use())); // Waits for effect to end
             }
         }
     }
 
-    private IEnumerator WaitForEffectToEnd(CardItem playedCard, float duration) // Do the negative effect after the positive effect
+    private IEnumerator WaitForEffectToEnd(Card playedCard, float duration) // Do the negative effect after the positive effect
     {
         yield return new WaitForSeconds(duration);
         playedCard.NegativeEffect(); // Does negative effect for the card
@@ -126,65 +126,65 @@ public class CardManager : MonoBehaviour
     // Make sure the method has the same name as the cardType name in the Card scriptable object
 
 
-    public void Attack(CardItem card)
+    public void Attack(Card card)
     {
         //Player.speed = Player.speed * 2;
 
         Debug.Log("speed");
     }
 
-    public void Shield(CardItem card)
+    public void Shield(Card card)
     {
 
-        player.becomeInvul(card.card.duration);
+        player.becomeInvul(card.duration);
 
         Debug.Log("shield");
     }
-    public void Health(CardItem card)
+    public void Health(Card card)
     {
         //Player.speed = Player.speed * 2;
 
         Debug.Log("health");
     }
-    public void Stun(CardItem card)
+    public void Stun(Card card)
     {
         //Player.speed = Player.speed * 2;
 
         Debug.Log("stun");
     }
-    public void Gamble(CardItem card)
+    public void Gamble(Card card)
     {
         //Player.speed = Player.speed * 2;
 
         Debug.Log("gamble");
     }
-    public void Anger(CardItem card)
+    public void Anger(Card card)
     {
         //Player.speed = Player.speed * 2;
 
         Debug.Log("anger");
     }
 
-    public void Slow(CardItem card)
+    public void Slow(Card card)
     {
         //Player.speed = Player.speed * 0.5f;
 
         Debug.Log("slow");
     }
 
-    public void WizHeal(CardItem card)
+    public void WizHeal(Card card)
     {
         //Player.speed = Player.speed * 2;
 
         Debug.Log("wizHeal");
     }
-    public void WizStun(CardItem card)
+    public void WizStun(Card card)
     {
         //Player.speed = Player.speed * 2;
 
         Debug.Log("wizStun");
     }
-    public void WizGamble(CardItem card)
+    public void WizGamble(Card card)
     {
         //Player.speed = Player.speed * 2;
 
