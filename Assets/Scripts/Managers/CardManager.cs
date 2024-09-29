@@ -154,7 +154,7 @@ public class CardManager : MonoBehaviour
     }
     public void Stun(Card card)
     {
-        //Player.speed = Player.speed * 2;
+        player.changeSpeed(1.5f, card.duration);
 
         Debug.Log("stun");
     }
@@ -173,8 +173,7 @@ public class CardManager : MonoBehaviour
 
     public void Slow(Card card)
     {
-        //Player.speed = Player.speed * 0.5f;
-
+        player.changeSpeed(0.5f, card.duration);
         Debug.Log("slow");
     }
 

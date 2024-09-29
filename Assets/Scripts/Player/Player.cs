@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     
     public Transform[] positions = new Transform[4];
     public float speed = 5.0f;
+    private float originalSpeed;
     public float jumpHeight = 6.5f;
     private KeyCode[] keys2 = { KeyCode.W, KeyCode.S, KeyCode.A, KeyCode.D };
     public float dashCooldown = 1.0f;
@@ -33,6 +34,7 @@ public class Player : MonoBehaviour
         hpSlider.value = health;
         player = this;
         rb = GetComponent<Rigidbody2D>();
+        originalSpeed = speed;
     }
     void Update()
     {
@@ -150,6 +152,19 @@ public class Player : MonoBehaviour
     {
         invulTimer = time;
         StartCoroutine(Flash(time));
+    }
+    public void changeSpeed(float am, float time)
+    {
+        if(speed == originalSpeed)
+        {
+            speed = speed * am;
+            StartCoroutine(SpeedBack(time));
+        }
+    }
+    IEnumerator SpeedBack(float num)
+    {
+        yield return new WaitForSeconds(num);
+        speed = originalSpeed;
     }
     IEnumerator Flash(float num)
     {
