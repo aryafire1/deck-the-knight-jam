@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -27,6 +28,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        Time.timeScale = 1;
         manager = this;
         endGameMenu.SetActive(false);
         pauseMenu.SetActive(false);
@@ -51,6 +53,7 @@ public class GameManager : MonoBehaviour
         
 
     }
+    
     public static void UseSpellSlot(){
         spellSlots -= 1;
         Debug.Log("Spell Slots: " + spellSlots);
