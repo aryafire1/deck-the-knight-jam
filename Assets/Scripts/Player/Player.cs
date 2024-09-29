@@ -137,12 +137,12 @@ public class Player : MonoBehaviour
             StartCoroutine(Flash(5));
         }
     }
-    public void becomeInvul(int time)
+    public void becomeInvul(float time)
     {
         invulTimer = time;
         StartCoroutine(Flash(time));
     }
-    IEnumerator Flash(int num)
+    IEnumerator Flash(float num)
     {
         for (int i = 0; i < num; i++)
         {
