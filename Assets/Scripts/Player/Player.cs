@@ -22,6 +22,8 @@ public class Player : MonoBehaviour
     private float invulTimer= 0.0f;
     public Slider hpSlider;
     public Animator anim;
+    public AudioSource jumpA;
+    public AudioSource hit;
     public GameObject particle;
     void Start()
     {
@@ -43,6 +45,10 @@ public class Player : MonoBehaviour
             jump = true;
             if (isGrounded && rb.velocity.y < 5)
             {
+                if(!jumpA.isPlaying){
+                    jumpA.Play();
+                }
+                
                 rb.AddForce(new Vector2(0, jumpHeight), ForceMode2D.Impulse);
                 isGrounded = false;
                 anim.SetBool("isGrounded", false);
@@ -126,6 +132,7 @@ public class Player : MonoBehaviour
     {
         if (invulTimer <= 0.0f)
         {
+            hit.Play();
             health -= damage;
             invulTimer = invulTime;
             hpSlider.value = health;
