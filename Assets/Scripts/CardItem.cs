@@ -6,6 +6,7 @@ using UnityEngine.Events;
 
 public class CardItem : MonoBehaviour
 {
+    public static CardItem cardItem;
 
     public UnityAction<CardType> OnPositive;
     public UnityAction<CardType> OnNegative;
@@ -13,6 +14,10 @@ public class CardItem : MonoBehaviour
 
 
     bool used = false; // Whether the card has been used or not
+
+    void Start() {
+        cardItem = this;
+    }
 
     public virtual float Use() // Applies positive effect to the player
     {
