@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 945589796c331fd4483154e1896b9749, type: 3}
-  m_Name: Shield
+  m_Name: Stun
   m_EditorClassIdentifier: 
-  posType: 1
-  negType: 6
-  cardName: Shield
-  icon: {fileID: 21300000, guid: d322852f0bfc0244d88c3213ef9b6a93, type: 3}
-  duration: 10
-  effectAmount: 2
+  posType: 3
+  negType: 8
+  cardName: Stun
+  icon: {fileID: 21300000, guid: f64a9f6e501313f49939ad89f3e0cbd8, type: 3}
+  duration: 3
+  effectAmount: 0

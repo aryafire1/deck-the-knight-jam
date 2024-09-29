@@ -8,21 +8,22 @@ public class Card : ScriptableObject
 {
     public enum CardType
     {
-        Speed = 0,
+        Attack = 0,
         Shield = 1,
         Health = 2,
-        Pos1 = 3,
-        Pos2 = 4,
-        Neg1 = 5,
+        Stun = 3,
+        Gamble = 4,
+        Anger = 5,
         Slow = 6,
-        Neg2 = 7,
-        Neg3 = 8,
-        Neg4 = 9,
+        WizHeal = 7,
+        WizStun = 8,
+        WizGamble = 9,
     }
 
-    public CardType posType = CardType.Speed;
+    public CardType posType = CardType.Attack;
     public CardType negType = CardType.Slow;
     public string cardName = "";
+    public Sprite icon;
 
     [Tooltip("The duration of the effect (Ex: how long the shield lasts)")]
     public float duration = 0;
