@@ -123,7 +123,7 @@ public class CardManager : MonoBehaviour
 
     #region Card Effects
     // Make sure the method has the same name as the cardType name in the Card scriptable object
-
+/*
     public void Shield()
     {
         Player.invulTimer = Card.duration;
@@ -144,6 +144,6 @@ public class CardManager : MonoBehaviour
 
         Debug.Log("slow");
     }
-
+*/
     #endregion
 }

@@ -6,15 +6,18 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    public static Player player;
+    public Rigidbody2D rb;
     public int health = 3;
     
     public Transform[] positions = new Transform[4];
     public float speed = 5.0f;
-    public float jumpHeight = 5.5f;
+    public float jumpHeight = 6.5f;
     private KeyCode[] keys2 = { KeyCode.W, KeyCode.S, KeyCode.A, KeyCode.D };
     public float dashCooldown = 1.0f;
     private float dashTimer = 0.0f;
     private bool isGrounded = false;
+    private bool airJump = false;
     public float invulTime= 1.0f;
     private float invulTimer= 0.0f;
     public Slider hpSlider;
@@ -25,6 +28,8 @@ public class Player : MonoBehaviour
         anim = GetComponent<Animator>();
         hpSlider.maxValue = health;
         hpSlider.value = health;
+        player = this;
+        rb = GetComponent<Rigidbody2D>();
     }
     void Update()
     {
@@ -36,9 +41,9 @@ public class Player : MonoBehaviour
         if (Input.GetKey(keys2[0]))
         {
             jump = true;
-            if (isGrounded)
+            if (isGrounded && rb.velocity.y < 5)
             {
-                gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, jumpHeight), ForceMode2D.Impulse);
+                rb.AddForce(new Vector2(0, jumpHeight), ForceMode2D.Impulse);
                 isGrounded = false;
                 anim.SetBool("isGrounded", false);
             }
@@ -63,10 +68,11 @@ public class Player : MonoBehaviour
             anim.SetFloat("SpeedR", 1.5f);
         }
         dashTimer += Time.deltaTime;
-        dash(move, jump);
+        //dashBlink(move, jump);\
+        dashMove(move, jump);
         transform.parent.position += move * speed * Time.deltaTime;
     }
-    public void dash(Vector3 move, bool jump){
+    public void dashBlink(Vector3 move, bool jump){
         if (dashTimer >= dashCooldown && Input.GetKey(KeyCode.Space))
         {
             StartCoroutine(parti(false));
@@ -90,6 +96,32 @@ public class Player : MonoBehaviour
             StartCoroutine(parti(true));
         }
     }
+    public void dashMove(Vector3 move, bool jump){
+        if (dashTimer >= dashCooldown && Input.GetKey(KeyCode.Space))
+        {
+            StartCoroutine(parti(false));
+            Vector2 tempPosition = new Vector2(0, 0);
+            if (jump && airJump)
+            {
+                tempPosition.x = move.x*5;
+                tempPosition.y = jumpHeight*1.5f;
+                anim.SetBool("isGrounded", false);
+                airJump = false;
+            }
+            else if (move.x != 0)
+            {
+                tempPosition.x = move.x*5;
+            }
+            invulTimer = invulTime/2;
+            rb.velocity = new Vector2(0, 0);
+            rb.gravityScale = 0;
+            rb.velocity = tempPosition;
+            
+            //rb.AddForce(tempPosition, ForceMode2D.Impulse);
+            dashTimer = 0.0f;
+            StartCoroutine(parti(true));
+        }
+    }
     public void takeDamage(int damage)
     {
         if (invulTimer <= 0.0f)
@@ -102,12 +134,12 @@ public class Player : MonoBehaviour
                 Debug.Log("dead");
                 //GameManager.manager.GameOver();
             }
-            StartCoroutine(Flash());
+            StartCoroutine(Flash(5));
         }
     }
-    IEnumerator Flash()
+    IEnumerator Flash(int num)
     {
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < num; i++)
         {
             GetComponent<SpriteRenderer>().enabled = false;
             yield return new WaitForSeconds(0.1f);
@@ -123,7 +155,10 @@ public class Player : MonoBehaviour
             temp.transform.parent = transform;
             temp.transform.position = transform.position;
             temp.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
-            yield return new WaitForSeconds(1f);
+            StartCoroutine(Flash(3));
+            yield return new WaitForSeconds(0.2f);
+            rb.gravityScale = 2.5f;
+            
         }
         else{
             yield return new WaitForSeconds(0.3f);
@@ -133,9 +168,10 @@ public class Player : MonoBehaviour
     }
     public void OnCollisionStay2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Ground" && collision.gameObject.transform.position.y+0.8f < transform.position.y)
+        if (collision.gameObject.tag == "Ground" && collision.gameObject.transform.position.y+0.3f < transform.position.y)
         {
             isGrounded = true;
+            airJump = true;
             anim.SetBool("isGrounded", true);
         }
     }
