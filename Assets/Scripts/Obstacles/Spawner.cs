@@ -36,7 +36,7 @@ public class Spawner : MonoBehaviour
             GameObject newObstacle;
             if (wizard != null && randomizeY){
                 wizard.attack();
-                GameManager.UseSpellSlot();
+                GameManager.ChangeSpellSlot(-1);
                 newObstacle = Instantiate(obstaclePrefab, wizard.transform.position, Quaternion.identity);
             }
             else{

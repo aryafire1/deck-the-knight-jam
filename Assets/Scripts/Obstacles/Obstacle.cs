@@ -28,7 +28,7 @@ public class Obstacle : MonoBehaviour
             transform.parent = null;
         }
         if(spellSlot){
-            GameManager.spellSlots -= 1;
+            GameManager.ChangeSpellSlot(-1);
         }
         
     }

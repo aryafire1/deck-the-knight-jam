@@ -62,8 +62,8 @@ public class GameManager : MonoBehaviour
 
     }
     
-    public static void UseSpellSlot(){
-        spellSlots -= 1;
+    public static void ChangeSpellSlot(int num){
+        spellSlots += num;
         Debug.Log("Spell Slots: " + spellSlots);
         if(spellSlots <= 0){
             manager.StopBossFight();

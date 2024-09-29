@@ -16,5 +16,5 @@ MonoBehaviour:
   negType: 6
   cardName: Shield
   icon: {fileID: 21300000, guid: d322852f0bfc0244d88c3213ef9b6a93, type: 3}
-  duration: 10
+  duration: 3
   effectAmount: 2

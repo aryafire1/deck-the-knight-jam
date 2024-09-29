@@ -116,8 +116,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8635600389629356077}
   - component: {fileID: 3204770916856674850}
-  - component: {fileID: 2064436300946427417}
   - component: {fileID: 6511303059972494689}
+  - component: {fileID: -627616243283027998}
   m_Layer: 0
   m_Name: FireBall
   m_TagString: Untagged
@@ -193,25 +193,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2064436300946427417
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3504448680350686133}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3119e93c644f20449b018499ba9c3c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 10
-  target: {x: 0, y: 0, z: 0}
-  isMoving: 0
-  orbType: 0
-  damage: 1
-  disappearTime: 0
-  spellSlot: 0
 --- !u!58 &6511303059972494689
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -247,3 +228,16 @@ CircleCollider2D:
   m_Offset: {x: -0.0010825545, y: -0.007326367}
   serializedVersion: 2
   m_Radius: 0.08697451
+--- !u!114 &-627616243283027998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3504448680350686133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebf58c5f268e63843947cf8d061af68d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 1

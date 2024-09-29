@@ -88,8 +88,6 @@ public class CardManager : MonoBehaviour
 
     void Update()
     {
-        this.transform.Translate(Input.GetAxis("Horizontal") * Time.deltaTime, 0, 0);
-
         if (Input.GetKeyDown(KeyCode.F))
         {
             string result = "List contents: ";
@@ -128,21 +126,20 @@ public class CardManager : MonoBehaviour
 
     public void Attack(Card card)
     {
-        //Player.speed = Player.speed * 2;
+        GameManager.ChangeSpellSlot(-(int)card.effectAmount);
 
-        Debug.Log("speed");
+        Debug.Log("attack");
     }
 
     public void Shield(Card card)
     {
-
-        player.becomeInvul(card.duration);
+        player.becomeInvul(card.duration * 5);
 
         Debug.Log("shield");
     }
     public void Health(Card card)
     {
-        //Player.speed = Player.speed * 2;
+        player.takeDamage(-(int)card.effectAmount);
 
         Debug.Log("health");
     }
@@ -174,7 +171,7 @@ public class CardManager : MonoBehaviour
 
     public void WizHeal(Card card)
     {
-        //Player.speed = Player.speed * 2;
+        GameManager.ChangeSpellSlot((int)card.effectAmount);
 
         Debug.Log("wizHeal");
     }

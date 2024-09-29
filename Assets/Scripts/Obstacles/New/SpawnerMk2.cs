@@ -10,6 +10,8 @@ public class SpawnerMk2 : MonoBehaviour
     GameManager gameManager;
     public bool canSpawnCard = true;
     public float scoreDividend = 0;
+    public Wizard wizard;
+    public GameObject wizardRoom;
 
     private void Start()
     {
@@ -32,11 +34,21 @@ public class SpawnerMk2 : MonoBehaviour
             canSpawnCard = false;
         }
 
-        int random = Random.Range(0, obstacles.Count);
-        GameObject newObstacle = Instantiate(obstacles[random], transform.position, Quaternion.identity);
-        Scroller obstacle = newObstacle.GetComponent<Scroller>();
-        obstacle.Initialize(destroyer, canSpawnCard);
-        StartCoroutine(WaitToSpawn(newObstacle.GetComponent<BoxCollider2D>().size.x, newObstacle.GetComponent<Scroller>().speed));
+        if (wizard)
+        {
+            GameObject newObstacle = Instantiate(wizardRoom, transform.position, Quaternion.identity);
+            Scroller obstacle = newObstacle.GetComponent<Scroller>();
+            obstacle.Initialize(destroyer, false);
+            StartCoroutine(WaitToSpawn(newObstacle.GetComponent<BoxCollider2D>().size.x, newObstacle.GetComponent<Scroller>().speed));
+        }
+        else
+        {
+            int random = Random.Range(0, obstacles.Count);
+            GameObject newObstacle = Instantiate(obstacles[random], transform.position, Quaternion.identity);
+            Scroller obstacle = newObstacle.GetComponent<Scroller>();
+            obstacle.Initialize(destroyer, canSpawnCard);
+            StartCoroutine(WaitToSpawn(newObstacle.GetComponent<BoxCollider2D>().size.x, newObstacle.GetComponent<Scroller>().speed));
+        }
     }
 
     IEnumerator WaitToSpawn(float size, float speed)
