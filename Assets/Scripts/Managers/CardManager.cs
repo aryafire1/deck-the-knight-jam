@@ -45,6 +45,13 @@ public class CardManager : MonoBehaviour
 
     bool timer = true; // Makes sure we can't spam card activations
 
+    Player player;
+
+    private void Start()
+    {
+        player = GetComponent<Player>();
+    }
+
     public bool Add(CardItem newCard) // Adds new card that player collects
     {
         if (cardList.ContainsKey(newCard) && cardList[newCard] >= space) // If the player has too many of the same cards, don't add new card
@@ -88,10 +95,12 @@ public class CardManager : MonoBehaviour
         }
     }
 
-    void Update() {
-        this.transform.Translate(Input.GetAxis("Horizontal") * Time.deltaTime,0,0);
+    void Update()
+    {
+        this.transform.Translate(Input.GetAxis("Horizontal") * Time.deltaTime, 0, 0);
 
-        if (Input.GetKeyDown(KeyCode.F)) {
+        if (Input.GetKeyDown(KeyCode.F))
+        {
             string result = "List contents: ";
             foreach (CardItem card in cardList.Keys)
             {
@@ -100,14 +109,15 @@ public class CardManager : MonoBehaviour
             Debug.Log(result);
         }
 
-        if (timer && Input.GetKeyDown(KeyCode.T)) {
+        if (timer && Input.GetKeyDown(KeyCode.T))
+        {
             timer = false;
-            foreach(CardItem card in cardList.Keys)
+            foreach (CardItem card in cardList.Keys)
             {
-                UnityAction cardAction = (UnityAction)Delegate.CreateDelegate(typeof(UnityAction), this, card.card.posType.ToString()); // Gets card effect name, matches it with card effect method
-                card.OnPositive += delegate { cardAction(); }; // Actually makes the code run for positive effect
-                UnityAction negCardAction = (UnityAction)Delegate.CreateDelegate(typeof(UnityAction), this, card.card.negType.ToString()); // Gets card effect name, matches it with card effect method
-                card.OnNegative += delegate { negCardAction(); }; // Actually makes the code run for negative effect
+                UnityAction<CardItem> cardAction = (UnityAction<CardItem>)Delegate.CreateDelegate(typeof(UnityAction<CardItem>), this, card.card.posType.ToString()); // Gets card effect name, matches it with card effect method
+                card.OnPositive += delegate { cardAction(card); }; // Actually makes the code run for positive effect
+                UnityAction<CardItem> negCardAction = (UnityAction<CardItem>)Delegate.CreateDelegate(typeof(UnityAction<CardItem>), this, card.card.negType.ToString()); // Gets card effect name, matches it with card effect method
+                card.OnNegative += delegate { negCardAction(card); }; // Actually makes the code run for negative effect
                 StartCoroutine(WaitForEffectToEnd(card, card.Use())); // Waits for effect to end
             }
         }
@@ -124,23 +134,24 @@ public class CardManager : MonoBehaviour
     #region Card Effects
     // Make sure the method has the same name as the cardType name in the Card scriptable object
 
-    public void Shield()
+    public void Shield(CardItem card)
     {
-        Player.player.invulTime = CardItem.cardItem.card.duration;
+
+        player.becomeInvul(card.card.duration);
 
         Debug.Log("shield");
     }
 
-    public void Speed()
+    public void Speed(CardItem card)
     {
-        Player.player.speed = Player.player.speed * 2;
+        //Player.speed = Player.speed * 2;
 
         Debug.Log("speed");
     }
 
-    public void Slow()
+    public void Slow(CardItem card)
     {
-        Player.player.speed = Player.player.speed * 0.5f;
+        //Player.speed = Player.speed * 0.5f;
 
         Debug.Log("slow");
     }
