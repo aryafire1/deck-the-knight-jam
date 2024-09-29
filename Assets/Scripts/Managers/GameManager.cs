@@ -28,10 +28,14 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     public static int spellSlots = 10;
 
+    private void Awake()
+    {
+        manager = this;
+    }
+
     void Start()
     {
         Time.timeScale = 1;
-        manager = this;
         endGameMenu.SetActive(false);
         pauseMenu.SetActive(false);
         Audios = transform.GetComponent<AudioSource>();

@@ -8,6 +8,10 @@ public class Scroller : MonoBehaviour
     public float speed = 10;
     public float timer = 30f;
     public Transform destination;
+    public List<Transform> cardSpawn = new List<Transform>();
+    public GameObject cardObject;
+
+    bool spawnCard = false;
 
     // Update is called once per frame
     void Update()
@@ -22,8 +26,15 @@ public class Scroller : MonoBehaviour
         }
     }
 
-    public void Initialize(Transform dest)
+    public void Initialize(Transform dest, bool cardSpawner)
     {
         destination = dest;
+        spawnCard = cardSpawner;
+        if (spawnCard)
+        {
+            Debug.Log("spawn");
+            int random = Random.Range(0, cardSpawn.Count);
+            GameObject card = Instantiate(cardObject, cardSpawn[random].position, Quaternion.identity, transform);
+        }
     }
 }
