@@ -125,10 +125,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4594264661437399985}
   - component: {fileID: 8049372028931834974}
-  - component: {fileID: 3370213995337527143}
   - component: {fileID: 3754898260688882060}
   - component: {fileID: 4093818358911409646}
   - component: {fileID: 5271195080357495378}
+  - component: {fileID: 3281436415778565828}
   m_Layer: 0
   m_Name: BigBox
   m_TagString: Ground
@@ -205,25 +205,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3370213995337527143
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8292302297472742835}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3119e93c644f20449b018499ba9c3c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 5
-  target: {x: 0, y: 0, z: 0}
-  isMoving: 1
-  orbType: 0
-  damage: 1
-  disappearTime: 0
-  spellSlot: 0
 --- !u!61 &3754898260688882060
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -327,3 +308,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardPrefab: {fileID: 6326037808992349243, guid: 048cbc99e677b8e4f8814d9d1013308d, type: 3}
+--- !u!114 &3281436415778565828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8292302297472742835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebf58c5f268e63843947cf8d061af68d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 1

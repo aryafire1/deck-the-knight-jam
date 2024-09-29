@@ -55,8 +55,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2470515933306545800}
   - component: {fileID: 6826581920344929483}
-  - component: {fileID: 1308650681891520439}
   - component: {fileID: -4838044569646747508}
+  - component: {fileID: -6381732306260372936}
   m_Layer: 0
   m_Name: Wall
   m_TagString: Untagged
@@ -132,25 +132,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1308650681891520439
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2531762634933342936}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3119e93c644f20449b018499ba9c3c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 5
-  target: {x: 0, y: 0, z: 0}
-  isMoving: 1
-  orbType: 0
-  damage: 1
-  disappearTime: 0
-  spellSlot: 0
 --- !u!61 &-4838044569646747508
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -196,6 +177,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.7037964, y: 1.7351356}
   m_EdgeRadius: 0
+--- !u!114 &-6381732306260372936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2531762634933342936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebf58c5f268e63843947cf8d061af68d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 1
 --- !u!1 &8619169358154053776
 GameObject:
   m_ObjectHideFlags: 0
