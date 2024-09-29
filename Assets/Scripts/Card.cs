@@ -23,8 +23,10 @@ public class Card : ScriptableObject
     public CardType posType = CardType.Speed;
     public CardType negType = CardType.Slow;
     public string cardName = "";
+
     [Tooltip("The duration of the effect (Ex: how long the shield lasts)")]
     public float duration = 0;
+    
     [Tooltip("The magnitude of effect (Ex: how much health recovered)")]
     public float effectAmount = 0;
 }

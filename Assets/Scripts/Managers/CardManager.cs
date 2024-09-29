@@ -126,16 +126,22 @@ public class CardManager : MonoBehaviour
 
     public void Shield()
     {
+        Player.invulTimer = Card.duration;
+
         Debug.Log("shield");
     }
 
     public void Speed()
     {
+        Player.speed = Player.speed * 2;
+
         Debug.Log("speed");
     }
 
     public void Slow()
     {
+        Player.speed = Player.speed * 0.5f;
+
         Debug.Log("slow");
     }
 
