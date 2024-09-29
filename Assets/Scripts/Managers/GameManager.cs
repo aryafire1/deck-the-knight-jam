@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     public bool isGameOver = false;
     public bool bossFight = false;
 
-    public Spawner spawner;
+    public SpawnerMk2 spawner;
     public GameObject prefabFireball;
     public GameObject box;
     public GameObject pauseMenu;
@@ -73,16 +73,16 @@ public class GameManager : MonoBehaviour
         bossFight = true;
         spellSlots = maxSpellSlots;
         transform.GetChild(0).gameObject.SetActive(true);
-        spawner.obstaclePrefab = prefabFireball;
-        spawner.spawnRate = 3.5f;
+        spawner.ManualSpawn(prefabFireball);
+        //spawner.spawnRate = 3.5f;
     }
     public void StopBossFight(){
         bossFight = false;
         maxSpellSlots +=5;
         spellSlots = maxSpellSlots;
         transform.GetChild(0).gameObject.SetActive(false);
-        spawner.obstaclePrefab = box;
-        spawner.spawnRate = 5.0f;
+        //spawner.obstaclePrefab = box;
+        //spawner.spawnRate = 5.0f;
         scoreBoss = score + 50;
     }
     public void GameOver(){

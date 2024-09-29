@@ -64,7 +64,7 @@ public class UseCard : MonoBehaviour
             Transform child = Singleton.transform.GetChild(i);
             child.gameObject.SetActive(true);
             image = child.GetComponent<Image>();
-            image.sprite = manager.cardList[i].card.icon;
+            image.sprite = manager.cardList[i].icon;
         }
         for (int i = 4; i > c; i--)
         {
