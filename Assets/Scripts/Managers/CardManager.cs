@@ -142,7 +142,7 @@ public class CardManager : MonoBehaviour
         Debug.Log("shield");
     }
 
-    public void Speed(CardItem card)
+    public void Attack(CardItem card)
     {
         //Player.speed = Player.speed * 2;
 

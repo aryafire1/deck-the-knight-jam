@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 945589796c331fd4483154e1896b9749, type: 3}
-  m_Name: Speed
+  m_Name: Gamble
   m_EditorClassIdentifier: 
-  posType: 0
-  negType: 6
-  cardName: Speed
+  posType: 4
+  negType: 9
+  cardName: Gamble
+  icon: {fileID: 21300000, guid: 2d8b5b6a67194184da3a8d37fea46cc1, type: 3}
   duration: 3
   effectAmount: 0
