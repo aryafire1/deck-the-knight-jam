@@ -62,6 +62,7 @@ public class CardManager : MonoBehaviour
         else
         {
             cardList.Add(newCard);
+            UseCard.AddCardUI(); // Update UI
         }
 
         CallbackMethod(); // Update UI
