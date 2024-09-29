@@ -211,6 +211,7 @@ MonoBehaviour:
   orbType: 0
   damage: 1
   disappearTime: 2.4
+  spellSlot: 1
 --- !u!61 &6305074086825992643
 BoxCollider2D:
   m_ObjectHideFlags: 0

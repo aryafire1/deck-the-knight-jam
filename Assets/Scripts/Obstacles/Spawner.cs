@@ -12,6 +12,7 @@ public class Spawner : MonoBehaviour
     public bool randomizeX = false;
     public Vector3 originalPosition;
     public Vector3 originalParetnPosition;
+    public Wizard wizard;
     public void Start()
     {
         originalPosition = transform.position;
@@ -28,10 +29,12 @@ public class Spawner : MonoBehaviour
                 float r = Random.Range(-1f, 1f);
                 transform.parent.position = new Vector3(originalParetnPosition.x, originalParetnPosition.y+r, originalParetnPosition.z);
             }
-            else if (randomizeX){
-                
+            if (randomizeX){
                 transform.position = new Vector3(originalParetnPosition.x+Random.Range(10f, 22f), transform.position.y, transform.position.z);
                 
+            }
+            if (wizard != null){
+                wizard.attack();
             }
             GameObject newObstacle = Instantiate(obstaclePrefab, transform.position, Quaternion.identity);
             newObstacle.GetComponent<Obstacle>().isMoving = moveObstacle;

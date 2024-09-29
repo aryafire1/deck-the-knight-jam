@@ -211,6 +211,7 @@ MonoBehaviour:
   orbType: 0
   damage: 1
   disappearTime: 0
+  spellSlot: 1
 --- !u!58 &6511303059972494689
 CircleCollider2D:
   m_ObjectHideFlags: 0

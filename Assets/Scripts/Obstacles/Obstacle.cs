@@ -12,6 +12,7 @@ public class Obstacle : MonoBehaviour
     private Player player;
     public int damage = 1;
     public float disappearTime = 0.0f;
+    public bool spellSlot = false;
   
 
     void Start()
@@ -25,6 +26,9 @@ public class Obstacle : MonoBehaviour
         else{
             target = transform.parent.position;
             transform.parent = null;
+        }
+        if(spellSlot){
+            GameManager.spellSlots -= 1;
         }
         
     }

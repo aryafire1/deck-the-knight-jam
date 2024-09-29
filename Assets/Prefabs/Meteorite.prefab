@@ -211,6 +211,7 @@ MonoBehaviour:
   orbType: 1
   damage: 1
   disappearTime: 0
+  spellSlot: 1
 --- !u!70 &5768701252397832124
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

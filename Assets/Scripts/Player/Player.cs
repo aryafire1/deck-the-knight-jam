@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
     public int health = 3;
-    public int score = 0;
+    
     public Transform[] positions = new Transform[4];
     public float speed = 5.0f;
     public float jumpHeight = 5.5f;
@@ -100,6 +100,7 @@ public class Player : MonoBehaviour
             if (health <= 0)
             {
                 Debug.Log("dead");
+                //GameManager.manager.GameOver();
             }
             StartCoroutine(Flash());
         }
@@ -129,10 +130,6 @@ public class Player : MonoBehaviour
         }
         Destroy(temp);
 
-    }
-    public void addScore(int points)
-    {
-        score += points;
     }
     public void OnCollisionStay2D(Collision2D collision)
     {
