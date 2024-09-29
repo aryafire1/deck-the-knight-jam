@@ -10,6 +10,7 @@ public class UseCard : MonoBehaviour
     private static CardManager manager;
     public static int cardIndex = 0;
     public static Image image;
+    public AudioSource powerUp;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,6 +28,7 @@ public class UseCard : MonoBehaviour
             {
                 manager.UseCard(manager.cardList[0]);
                 manager.Remove(manager.cardList[0]);
+                powerUp.Play();
             }
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
@@ -35,6 +37,7 @@ public class UseCard : MonoBehaviour
             {
                 manager.UseCard(manager.cardList[1]);
                 manager.Remove(manager.cardList[1]);
+                powerUp.Play();
             }
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
@@ -43,6 +46,7 @@ public class UseCard : MonoBehaviour
             {
                 manager.UseCard(manager.cardList[2]);
                 manager.Remove(manager.cardList[2]);
+                powerUp.Play();
             }
         }
         if (Input.GetKeyDown(KeyCode.Alpha4))
@@ -51,6 +55,7 @@ public class UseCard : MonoBehaviour
             {
                 manager.UseCard(manager.cardList[3]);
                 manager.Remove(manager.cardList[3]);
+                powerUp.Play();
             }
         }
         if (Input.GetKeyDown(KeyCode.Alpha5))
@@ -59,6 +64,7 @@ public class UseCard : MonoBehaviour
             {
                 manager.UseCard(manager.cardList[4]);
                 manager.Remove(manager.cardList[4]);
+                powerUp.Play();
             }
         }
     }
@@ -72,7 +78,8 @@ public class UseCard : MonoBehaviour
             image = child.GetComponent<Image>();
             image.sprite = manager.cardList[i].icon;
         }
-        for (int i = 4; i > c; i--)
+        
+        for (int i = 4; i > c-1; i--)
         {
             Transform child = Singleton.transform.GetChild(i);
             child.gameObject.SetActive(false);
