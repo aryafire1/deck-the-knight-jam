@@ -131,11 +131,16 @@ public class Player : MonoBehaviour
             hpSlider.value = health;
             if (health <= 0)
             {
-                Debug.Log("dead");
-                //GameManager.manager.GameOver();
+                //Debug.Log("dead");
+                GameManager.manager.GameOver();
             }
             StartCoroutine(Flash(5));
         }
+    }
+    public void becomeInvul(int time)
+    {
+        invulTimer = time;
+        StartCoroutine(Flash(time));
     }
     IEnumerator Flash(int num)
     {

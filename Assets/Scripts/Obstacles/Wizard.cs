@@ -16,8 +16,7 @@ public class Wizard : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    void Update()
-    {
+    public void attack(){
         Vector3 temp = player.transform.position;
         if (temp.x > transform.position.x)
         {
@@ -27,8 +26,6 @@ public class Wizard : MonoBehaviour
         {
             gameObject.GetComponent<SpriteRenderer>().flipX = true;
         }
-    }
-    public void attack(){
         StartCoroutine(AttackAnimation());
     }
 

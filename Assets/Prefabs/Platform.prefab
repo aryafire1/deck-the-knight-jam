@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8535378574104400167}
   - component: {fileID: 3359313272313622597}
   - component: {fileID: 402292732914131623}
+  - component: {fileID: 2188250127752977844}
   m_Layer: 0
   m_Name: Platform
   m_TagString: Ground
@@ -32,6 +33,7 @@ Transform:
   m_LocalScale: {x: 2.9190383, y: 0.9449, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 7602952821861661123}
   - {fileID: 1927814219648746445}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -150,6 +152,20 @@ MonoBehaviour:
   orbType: 0
   damage: 1
   disappearTime: 0
+  spellSlot: 0
+--- !u!114 &2188250127752977844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2199117609309769456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eac523d1cff36aa4fb48c35422e6186d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardPrefab: {fileID: 6326037808992349243, guid: 048cbc99e677b8e4f8814d9d1013308d, type: 3}
 --- !u!1 &3090847665208936745
 GameObject:
   m_ObjectHideFlags: 0
@@ -334,6 +350,37 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
+--- !u!1 &4979446406159772179
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7602952821861661123}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7602952821861661123
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4979446406159772179}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.02, z: 0}
+  m_LocalScale: {x: 0.5926609, y: 1.8308816, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 451071249299388366}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7476602693116982738
 GameObject:
   m_ObjectHideFlags: 0

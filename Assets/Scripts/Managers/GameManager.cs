@@ -17,27 +17,32 @@ public class GameManager : MonoBehaviour
     public Spawner spawner;
     public GameObject prefabFireball;
     public GameObject box;
-    public int maxSpellSlots = 20;
-    public static int spellSlots = 20;
+    public GameObject pauseMenu;
+    public GameObject endGameMenu;
+    public Text highScoreText;
+    public Text scoreText;
+    public int maxSpellSlots = 30;
+    [SerializeField]
+    public static int spellSlots = 30;
 
     void Start()
     {
         manager = this;
+        endGameMenu.SetActive(false);
+        pauseMenu.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
         scoreTimer += Time.deltaTime;
-        if(spellSlots <= 0){
-            StopBossFight();
-        }
-        else if (scoreTimer >= 1.0f)
+        if (scoreTimer >= 1.0f)
         {
             score += 1;
+            scoreText.text = "" + score;
             scoreTimer = 0.0f;
         }
-        if(scoreBoss <= score){
+        if(scoreBoss <= score && bossFight == false){
             StartBossFight();
         }
         if(Input.GetKeyDown(KeyCode.Escape)){
@@ -46,33 +51,49 @@ public class GameManager : MonoBehaviour
         
 
     }
+    public static void UseSpellSlot(){
+        spellSlots -= 1;
+        Debug.Log("Spell Slots: " + spellSlots);
+        if(spellSlots <= 0){
+            manager.StopBossFight();
+        }
+    }
     public void StartBossFight(){
         bossFight = true;
         
         transform.GetChild(0).gameObject.SetActive(true);
         spawner.obstaclePrefab = prefabFireball;
+        spawner.spawnRate = 3.5f;
     }
     public void StopBossFight(){
         bossFight = false;
         spellSlots = maxSpellSlots;
         transform.GetChild(0).gameObject.SetActive(false);
         spawner.obstaclePrefab = box;
+        spawner.spawnRate = 5.0f;
         scoreBoss = score + 50;
     }
     public void GameOver(){
+        endGameMenu.SetActive(true);
+        Time.timeScale = 0;
         isGameOver = true;
         if(score > highScore){
             highScore = score;
         }
+        highScoreText.text = "High Score: " + highScore;
         PauseGame();
     }
     public void PauseGame(){
-        isPaused = !isPaused;
-        if(isPaused){
-            Time.timeScale = 0;
-        }
-        else{
-            Time.timeScale = 1;
+        if(isGameOver == false){
+            isPaused = !isPaused;
+            if(isPaused){
+                Time.timeScale = 0;
+                pauseMenu.SetActive(true);
+            }
+            else{
+                Time.timeScale = 1;
+                pauseMenu.SetActive(false);
+            }
         }
     }
 

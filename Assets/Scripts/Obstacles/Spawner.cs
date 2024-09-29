@@ -35,6 +35,7 @@ public class Spawner : MonoBehaviour
             }
             if (wizard != null){
                 wizard.attack();
+                GameManager.UseSpellSlot();
             }
             GameObject newObstacle = Instantiate(obstaclePrefab, transform.position, Quaternion.identity);
             newObstacle.GetComponent<Obstacle>().isMoving = moveObstacle;
