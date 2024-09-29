@@ -24,9 +24,9 @@ public class GameManager : MonoBehaviour
     public Text scoreText;
     public Slider musicSlider;
     public AudioSource Audios;
-    public int maxSpellSlots = 30;
+    public int maxSpellSlots = 10;
     [SerializeField]
-    public static int spellSlots = 30;
+    public static int spellSlots = 10;
 
     void Start()
     {
@@ -67,13 +67,14 @@ public class GameManager : MonoBehaviour
     }
     public void StartBossFight(){
         bossFight = true;
-        
+        spellSlots = maxSpellSlots;
         transform.GetChild(0).gameObject.SetActive(true);
         spawner.obstaclePrefab = prefabFireball;
         spawner.spawnRate = 3.5f;
     }
     public void StopBossFight(){
         bossFight = false;
+        maxSpellSlots +=5;
         spellSlots = maxSpellSlots;
         transform.GetChild(0).gameObject.SetActive(false);
         spawner.obstaclePrefab = box;

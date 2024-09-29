@@ -33,11 +33,16 @@ public class Spawner : MonoBehaviour
                 transform.position = new Vector3(originalParetnPosition.x+Random.Range(10f, 22f), transform.position.y, transform.position.z);
                 
             }
-            if (wizard != null){
+            GameObject newObstacle;
+            if (wizard != null && randomizeY){
                 wizard.attack();
                 GameManager.UseSpellSlot();
+                newObstacle = Instantiate(obstaclePrefab, wizard.transform.position, Quaternion.identity);
             }
-            GameObject newObstacle = Instantiate(obstaclePrefab, transform.position, Quaternion.identity);
+            else{
+                newObstacle = Instantiate(obstaclePrefab, transform.position, Quaternion.identity);
+            }
+            
             newObstacle.GetComponent<Obstacle>().isMoving = moveObstacle;
             newObstacle.transform.SetParent(transform.parent);
             spawnTimer = 0.0f;
