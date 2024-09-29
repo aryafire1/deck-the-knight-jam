@@ -22,10 +22,8 @@ public class SpawnerMk2 : MonoBehaviour
     void Spawn()
     {
         float score = gameManager.score / 10;
-        Debug.Log("Score: " + score + " | Dividend: " + scoreDividend);
         if (score - 1 >= scoreDividend)
         {
-            Debug.Log("yay");
             canSpawnCard = true;
             scoreDividend = score;
         }

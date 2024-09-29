@@ -16,6 +16,8 @@ public class UseCard : MonoBehaviour
         manager = CardManager.Singleton;
         Singleton = this;
         image = GetComponent<Image>();
+
+        manager.onCardChangedCallback += AddCardUI;
     }
     void Update()
     {
@@ -23,36 +25,40 @@ public class UseCard : MonoBehaviour
         {
             if (manager.cardList.Count > 0)
             {
-                manager.cardList[0].Use();
-                manager.cardList.RemoveAt(0);
-                AddCardUI();
+                manager.UseCard(manager.cardList[0]);
+                manager.Remove(manager.cardList[0]);
             }
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             if (manager.cardList.Count > 1)
             {
-                manager.cardList[1].Use();
-                manager.cardList.RemoveAt(1);
-                AddCardUI();
+                manager.UseCard(manager.cardList[1]);
+                manager.Remove(manager.cardList[1]);
             }
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             if (manager.cardList.Count > 2)
             {
-                manager.cardList[2].Use();
-                manager.cardList.RemoveAt(2);
-                AddCardUI();
+                manager.UseCard(manager.cardList[2]);
+                manager.Remove(manager.cardList[2]);
             }
         }
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
             if (manager.cardList.Count > 3)
             {
-                manager.cardList[3].Use();
-                manager.cardList.RemoveAt(3);
-                AddCardUI();
+                manager.UseCard(manager.cardList[3]);
+                manager.Remove(manager.cardList[3]);
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            if (manager.cardList.Count > 4)
+            {
+                manager.UseCard(manager.cardList[4]);
+                manager.Remove(manager.cardList[4]);
             }
         }
     }

@@ -62,7 +62,6 @@ public class CardManager : MonoBehaviour
         else
         {
             cardList.Add(newCard);
-            UseCard.AddCardUI(); // Update UI
         }
 
         CallbackMethod(); // Update UI
@@ -111,6 +110,15 @@ public class CardManager : MonoBehaviour
                 StartCoroutine(WaitForEffectToEnd(card, card.Use())); // Waits for effect to end
             }
         }
+    }
+
+    public void UseCard(Card card)
+    {
+        UnityAction<Card> cardAction = (UnityAction<Card>)Delegate.CreateDelegate(typeof(UnityAction<Card>), this, card.posType.ToString()); // Gets card effect name, matches it with card effect method
+        card.OnPositive += delegate { cardAction(card); }; // Actually makes the code run for positive effect
+        UnityAction<Card> negCardAction = (UnityAction<Card>)Delegate.CreateDelegate(typeof(UnityAction<Card>), this, card.negType.ToString()); // Gets card effect name, matches it with card effect method
+        card.OnNegative += delegate { negCardAction(card); }; // Actually makes the code run for negative effect
+        StartCoroutine(WaitForEffectToEnd(card, card.Use())); // Waits for effect to end
     }
 
     private IEnumerator WaitForEffectToEnd(Card playedCard, float duration) // Do the negative effect after the positive effect
