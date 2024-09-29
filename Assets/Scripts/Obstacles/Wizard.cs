@@ -10,6 +10,7 @@ public class Wizard : MonoBehaviour
     public float prevX;
     private Animator animator;
     public GameObject spawner;
+    public AudioSource attackSound;
     public void Start()
     {
         player = FindObjectOfType<Player>();
@@ -18,13 +19,7 @@ public class Wizard : MonoBehaviour
     }
     public void Update()
     {
-        transform.position = Vector3.MoveTowards(transform.position, spawner.transform.position, 5 * Time.deltaTime);
-    }
-    public void onDisable(){
-        transform.position = transform.position + new Vector3(0, 5, 0);
-    }
-
-    public void attack(){
+        transform.position = Vector3.MoveTowards(transform.position, spawner.transform.position, 2 * Time.deltaTime);
         Vector3 temp = player.transform.position;
         
         if (temp.x > transform.position.x)
@@ -35,6 +30,14 @@ public class Wizard : MonoBehaviour
         {
             gameObject.GetComponent<SpriteRenderer>().flipX = true;
         }
+    }
+    public void onDisable(){
+        transform.position = transform.position + new Vector3(0, 3, 0);
+    }
+
+    public void attack(){
+        attackSound.Play();
+        
         StartCoroutine(AttackAnimation());
     }
 

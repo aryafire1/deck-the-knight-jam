@@ -24,6 +24,7 @@ public class Player : MonoBehaviour
     public Animator anim;
     public AudioSource jumpA;
     public AudioSource hit;
+    public AudioSource dashA;
     public GameObject particle;
     void Start()
     {
@@ -107,6 +108,7 @@ public class Player : MonoBehaviour
         {
             StartCoroutine(parti(false));
             Vector2 tempPosition = new Vector2(0, 0);
+            dashA.Play();
             if (jump && airJump)
             {
                 tempPosition.x = move.x*5;
