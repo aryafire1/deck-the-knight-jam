@@ -54,7 +54,7 @@ public class CardManager : MonoBehaviour
 
     public bool Add(CardItem newCard) // Adds new card that player collects
     {
-        if (cardList.ContainsKey(newCard) && cardList[newCard] >= space) // If the player has too many of the same cards, don't add new card
+        if (cardList.Keys.Count >= space) // If the player has too many cards, don't add new card
         {
             Debug.Log("Not enough room for this card");
             return false;
