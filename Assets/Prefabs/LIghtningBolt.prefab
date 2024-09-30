@@ -118,6 +118,7 @@ GameObject:
   - component: {fileID: 4326775708307427338}
   - component: {fileID: 7379305647851257129}
   - component: {fileID: 6305074086825992643}
+  - component: {fileID: -851936095827365870}
   m_Layer: 0
   m_Name: LIghtningBolt
   m_TagString: Untagged
@@ -133,7 +134,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8781264229312723725}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.18, y: 0.18999958, z: 0}
   m_LocalScale: {x: 1.6476716, y: 10.6091, z: 1}
   m_ConstrainProportionsScale: 0
@@ -200,7 +201,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8781264229312723725}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f3119e93c644f20449b018499ba9c3c1, type: 3}
   m_Name: 
@@ -257,3 +258,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1.0122178}
   m_EdgeRadius: 0
+--- !u!114 &-851936095827365870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8781264229312723725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebf58c5f268e63843947cf8d061af68d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 1
+  sprite: {fileID: 136725064779857141}
+  delay: 1

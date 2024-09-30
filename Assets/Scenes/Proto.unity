@@ -212,7 +212,7 @@ GameObject:
   - component: {fileID: 106283229}
   - component: {fileID: 106283231}
   - component: {fileID: 106283230}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Tilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9632,8 +9632,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 466140851}
-  - {fileID: 593569633}
   - {fileID: 611058116}
+  - {fileID: 2138394075}
   m_Father: {fileID: 245208209}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &245208208
@@ -9651,7 +9651,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &245208209
 Transform:
   m_ObjectHideFlags: 0
@@ -9695,7 +9695,7 @@ Transform:
   m_GameObject: {fileID: 323030469}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -58.75, y: 0, z: 0}
+  m_LocalPosition: {x: -60, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10017,15 +10017,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prevX: 0
-  spawner: {fileID: 593569631}
+  spawner: {fileID: 2138394074}
   attackSound: {fileID: 466140850}
-  attackRate: 5
+  attackRate: 3
   attackMod: 2
+  bonusRate: 1
   damage: 1
+  bonusDmg: 0
   prefabFireball: {fileID: 1047842715907176262, guid: 1362ea1888cd6d348bfab3326c99a69a, type: 3}
-  prefabLightning: {fileID: 0}
-  prefabMeteor: {fileID: 0}
-  canAttack: 0
+  prefabLightning: {fileID: 3291174108223525526, guid: 8c2e7cd039efc204bae6d665792b13cf, type: 3}
+  lightningRand: 5
+  prefabMeteor: {fileID: 9081503025394227340, guid: 14973ebd0b4817c4fbc71fe0f5e92046, type: 3}
+  lightningSpawner: {fileID: 618774254}
+  meteorSpawner: {fileID: 593569633}
+  fireballSpawner: {fileID: 598570847}
+  stunned: 0
 --- !u!82 &466140850
 AudioSource:
   m_ObjectHideFlags: 0
@@ -10131,10 +10137,11 @@ Transform:
   m_GameObject: {fileID: 466140848}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 19.54, y: 3, z: 0}
+  m_LocalPosition: {x: 20, y: 3, z: 0}
   m_LocalScale: {x: 4.8769712, y: 4.8769712, z: 4.8769712}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 593569633}
   m_Father: {fileID: 223593846}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &466140852
@@ -10419,7 +10426,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 593569631}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e12d553c9ae87084bb190bd1e06ea44c, type: 3}
   m_Name: 
@@ -10442,11 +10449,11 @@ Transform:
   m_GameObject: {fileID: 593569631}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 19.54, y: 0.2, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: -0.255, z: 0}
+  m_LocalScale: {x: 0.20504528, y: 0.20504528, z: 0.20504528}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 223593846}
+  m_Father: {fileID: 466140851}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &598570844
 GameObject:
@@ -10484,6 +10491,7 @@ MonoBehaviour:
   - {fileID: 8171793261713799733, guid: 8d1d7535a8b73e349bd8d5b7856204d6, type: 3}
   - {fileID: 8655775315846419368, guid: 25b8d858fdbe81e409d129e655b948a9, type: 3}
   destroyer: {fileID: 323030470}
+  cardSpawnRate: 5
   canSpawnCard: 1
   scoreDividend: 0
   wizard: {fileID: 466140849}
@@ -10588,7 +10596,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 618774254}
-  - component: {fileID: 618774255}
   m_Layer: 0
   m_Name: Rspawner
   m_TagString: Untagged
@@ -10605,33 +10612,12 @@ Transform:
   m_GameObject: {fileID: 618774253}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 21.81, y: 0, z: 0}
+  m_LocalPosition: {x: 21.81, y: -8.879998, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 523319193}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &618774255
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 618774253}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e12d553c9ae87084bb190bd1e06ea44c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  obstaclePrefab: {fileID: 8781264229312723725, guid: 38330301eafaf6944be3b3b40f967284, type: 3}
-  spawnRate: 8
-  spawnTimer: 0
-  moveObstacle: 1
-  randomizeY: 0
-  randomizeX: 1
-  originalPosition: {x: 0, y: 0, z: 0}
-  originalParetnPosition: {x: 0, y: 0, z: 0}
-  wizard: {fileID: 466140849}
 --- !u!1 &619204855
 GameObject:
   m_ObjectHideFlags: 0
@@ -11062,7 +11048,7 @@ GameObject:
   m_Component:
   - component: {fileID: 978602858}
   - component: {fileID: 978602859}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11597,7 +11583,7 @@ GameObject:
   - component: {fileID: 1137700442}
   - component: {fileID: 1137700444}
   - component: {fileID: 1137700443}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Tilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20682,7 +20668,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22fd17c058788604081eb880c7138bda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  score: 46
+  score: 25
   scoreBoss: 50
   isPaused: 0
   isGameOver: 0
@@ -20728,7 +20714,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 0.513
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -21304,7 +21290,7 @@ GameObject:
   - component: {fileID: 1518348769}
   - component: {fileID: 1518348768}
   - component: {fileID: 1518348767}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Ground2
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -22156,7 +22142,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1858444658}
   - component: {fileID: 1858444659}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22728,6 +22714,7 @@ MonoBehaviour:
   speed: 5
   jumpHeight: 6.5
   dashCooldown: 1
+  dashTimer: 0
   invulTime: 1
   hpSlider: {fileID: 1107640747}
   anim: {fileID: 0}
@@ -22799,7 +22786,7 @@ GameObject:
   - component: {fileID: 2016966475}
   - component: {fileID: 2016966474}
   - component: {fileID: 2016966473}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Ground1
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -23191,6 +23178,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2118309181}
   m_CullTransparentMesh: 1
+--- !u!1 &2138394074
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2138394075}
+  m_Layer: 0
+  m_Name: WizardLevel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2138394075
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2138394074}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 20, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 223593846}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2141301254
 GameObject:
   m_ObjectHideFlags: 0

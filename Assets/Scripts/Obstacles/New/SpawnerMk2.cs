@@ -24,6 +24,7 @@ public class SpawnerMk2 : MonoBehaviour
     public Transform destroyer;
 
     GameManager gameManager;
+    public float cardSpawnRate = 5f;
     public bool canSpawnCard = true;
     public float scoreDividend = 0;
     public Wizard wizard;
@@ -48,7 +49,7 @@ public class SpawnerMk2 : MonoBehaviour
             canSpawnCard = false;
         }
 
-        if (wizard.isActiveAndEnabled)
+        if (gameManager.bossFight)
         {
             GameObject newObstacle = Instantiate(wizardRoom, transform.position, Quaternion.identity);
             Scroller obstacle = newObstacle.GetComponent<Scroller>();
@@ -65,13 +66,13 @@ public class SpawnerMk2 : MonoBehaviour
         }
     }
 
-    public void ManualSpawn(GameObject obstacle, int damage)
+    public void ManualSpawn(GameObject obstacle, int damage, Transform spawnPos, Transform target)
     {
-        GameObject newObstacle = Instantiate(obstacle, transform.position, Quaternion.identity);
+        GameObject newObstacle = Instantiate(obstacle, spawnPos.position, spawnPos.rotation);
         Scroller scroller = newObstacle.GetComponent<Scroller>();
-        scroller.Initialize(destroyer, false);
-        ObstacleMk2 fireball = newObstacle.transform.GetComponentInChildren<ObstacleMk2>();
-        fireball.damage = damage;
+        scroller.Initialize(target, false);
+        ObstacleMk2 creation = newObstacle.transform.GetComponentInChildren<ObstacleMk2>();
+        creation.Initialize(damage);
     }
 
     IEnumerator WaitToSpawn(float size, float speed)

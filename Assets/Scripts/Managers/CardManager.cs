@@ -119,7 +119,15 @@ public class CardManager : MonoBehaviour
         card.OnPositive += delegate { cardAction(card); }; // Actually makes the code run for positive effect
         UnityAction<Card> negCardAction = (UnityAction<Card>)Delegate.CreateDelegate(typeof(UnityAction<Card>), this, card.negType.ToString()); // Gets card effect name, matches it with card effect method
         card.OnNegative += delegate { negCardAction(card); }; // Actually makes the code run for negative effect
-        StartCoroutine(WaitForEffectToEnd(card, card.Use())); // Waits for effect to end
+
+        foreach (Card collected in cardList) // Makes sure it only plays one card of the type called
+        {
+            if (collected == card)
+            {
+                StartCoroutine(WaitForEffectToEnd(card, card.Use())); // Waits for effect to end
+                return;
+            }
+        }
     }
 
     private IEnumerator WaitForEffectToEnd(Card playedCard, float duration) // Do the negative effect after the positive effect
@@ -127,7 +135,6 @@ public class CardManager : MonoBehaviour
         yield return new WaitForSeconds(duration);
         playedCard.NegativeEffect(); // Does negative effect for the card
         timer = true;
-        Remove(playedCard); // Removes card from inventory
     }
 
     #region Card Effects
@@ -138,7 +145,7 @@ public class CardManager : MonoBehaviour
     {
         GameManager.ChangeSpellSlot(-(int)card.effectAmount);
 
-        Debug.Log("attack");
+        Debug.Log("Attack: Lowers # of remaining spells");
     }
 
     public void Shield(Card card)
@@ -149,68 +156,75 @@ public class CardManager : MonoBehaviour
     }
     public void Health(Card card)
     {
-        player.takeDamage(-(int)card.effectAmount);
+        player.takeDamage((int)-card.effectAmount);
 
         Debug.Log("health");
     }
     public void Stun(Card card)
     {
-        wizard.canAttack = false;
+        wizard.stunned = true;
         StartCoroutine(StunEnd(card.duration));
 
-        Debug.Log("stun");
+        Debug.Log("Stun: wizard can't attack for a bit");
     }
     IEnumerator StunEnd(float duration)
     {
         yield return new WaitForSeconds(duration);
-        wizard.canAttack = true;
+        wizard.stunned = false;
     }
 
     public void Gamble(Card card)
     {
         GameManager.manager.score += 20;
 
-        Debug.Log("gamble");
+        Debug.Log("Gamble: gives 20 points");
     }
     public void Anger(Card card)
     {
-        //Player.speed = Player.speed * 2;
+        wizard.bonusRate = card.effectAmount;
 
-        Debug.Log("anger");
+        StartCoroutine(AngerEnd(card.duration));
+
+        Debug.Log("Anger: Increases attack rate");
+    }
+
+    IEnumerator AngerEnd(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        wizard.bonusRate = 1;
     }
 
     public void Slow(Card card)
     {
         player.changeSpeed(0.5f, card.duration);
-        Debug.Log("slow");
+        Debug.Log("Slow: slows player");
     }
 
     public void WizHeal(Card card)
     {
         GameManager.ChangeSpellSlot((int)card.effectAmount);
 
-        Debug.Log("wizHeal");
+        Debug.Log("wizHeal: Increases spell slots");
     }
     public void WizStun(Card card)
     {
-        player.dashCooldown = card.duration;
+        player.dashTimer = -card.duration + player.dashCooldown;
 
-        Debug.Log("wizStun");
+        Debug.Log("wizStun: prevents player from dashing for a bit");
     }
 
     public void WizGamble(Card card)
     {
-        int originalDmg = wizard.damage;
-        wizard.damage *= 2;
-        StartCoroutine(WizGambleEnd(card.duration, originalDmg));
+        wizard.bonusDmg = 1;
+        StartCoroutine(WizGambleEnd(card.duration));
 
-        Debug.Log("wizGamble");
+        Debug.Log("wizGamble: doubles damage");
     }
 
-    IEnumerator WizGambleEnd(float duration, int originalDmg)
+    IEnumerator WizGambleEnd(float duration)
     {
         yield return new WaitForSeconds(duration);
-        wizard.damage = originalDmg;
+        wizard.bonusDmg = 0;
     }
 
     #endregion

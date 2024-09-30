@@ -12,15 +12,25 @@ public class Wizard : MonoBehaviour
     public AudioSource attackSound;
     public float attackRate = 5f;
     public float attackMod = 2f;
+    public float bonusRate = 1;
 
     [Header("Attacks")]
     public int damage = 1;
+    public int bonusDmg = 0;
     public GameObject prefabFireball;
     public GameObject prefabLightning;
+    public float lightningRand = 5;
     public GameObject prefabMeteor;
 
+    [Header("Attack Spawners")]
+    public Transform lightningSpawner;
+    public Transform meteorSpawner;
+    public Transform fireballSpawner;
+    
     SpawnerMk2 spawnerMk2;
-    public bool canAttack = false;
+
+    bool canAttack = false;
+    public bool stunned = false;
 
     public void Start()
     {
@@ -33,15 +43,15 @@ public class Wizard : MonoBehaviour
     public void StartFight()
     {
         canAttack = true;
-        FireballAttack();
     }
 
     public void Update()
     {
-        if (canAttack)
+        if (canAttack && !stunned)
         {
             canAttack = false;
-            float atkFlux = Random.Range(-attackMod, attackMod);
+            int atkFlux = Random.Range(-(int)attackMod -1, (int)attackMod +1);
+            StartCoroutine(AttackAnimation((attackRate + atkFlux) / bonusRate));
         }
 
 
@@ -69,16 +79,49 @@ public class Wizard : MonoBehaviour
 
     void FireballAttack()
     {
-        spawnerMk2 = SpawnerMk2.Singleton;
-        spawnerMk2.ManualSpawn(prefabFireball, damage);
+        spawnerMk2.ManualSpawn(prefabFireball, damage + bonusDmg, fireballSpawner, spawnerMk2.destroyer);
+        Debug.Log("fireball");
+    }
+
+    void LightningAttack()
+    {
+        float rand = Random.Range(-lightningRand, lightningRand);
+        lightningSpawner.transform.position = new Vector2(player.transform.position.x + rand, lightningSpawner.transform.position.y);
+        spawnerMk2.ManualSpawn(prefabLightning, damage + bonusDmg, lightningSpawner, spawnerMk2.destroyer);
+        Debug.Log("lightning");
+    }
+
+    void MeteorAttack()
+    {
+        Vector3 vectorToTarget = player.transform.position - meteorSpawner.position;
+        float angle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg;
+        meteorSpawner.rotation = Quaternion.Euler(new Vector3(0, 0, angle + 90));
+        GameObject meteorTarget = new GameObject("Temporary");
+        meteorTarget.transform.tag = "Temporary";
+        GameObject target = Instantiate(meteorTarget, player.transform.position, Quaternion.identity);
+
+        spawnerMk2.ManualSpawn(prefabMeteor, damage + bonusDmg, meteorSpawner, target.transform);
+        Debug.Log("meteor");
     }
 
     IEnumerator AttackAnimation(float attackDelay)
     {
-        if (canAttack)
+        int rand = Random.Range(0, 3);
+        if (rand == 0)
         {
             FireballAttack();
         }
+        else if (rand == 1)
+        {
+            LightningAttack();
+        }
+        else
+        {
+            MeteorAttack();
+        }
+        GameManager.ChangeSpellSlot(-1);
+        attackSound.Play();
+
         animator.SetBool("isAttacking", true);
         yield return new WaitForSeconds(0.6f);
         animator.SetBool("isAttacking", false);

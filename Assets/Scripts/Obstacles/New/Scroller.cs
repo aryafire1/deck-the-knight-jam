@@ -12,14 +12,28 @@ public class Scroller : MonoBehaviour
     public GameObject cardObject;
 
     bool spawnCard = false;
+    float aliveTime = 0;
 
     // Update is called once per frame
     void Update()
     {
-        if (destination)
+        aliveTime += Time.deltaTime;
+        if (destination != null)
         {
-            transform.position = Vector3.MoveTowards(transform.position, destination.position, speed * Time.deltaTime);
-            if (Vector3.Distance(transform.position, destination.position) < 0.001f)
+            transform.position = Vector2.MoveTowards(transform.position, destination.position, speed * Time.deltaTime);
+            if (Vector2.Distance(transform.position, destination.position) < 0.001f || aliveTime >= timer)
+            {
+                if (destination.transform.CompareTag("Temporary"))
+                {
+                    Destroy(destination.gameObject);
+                }
+                Destroy(gameObject);
+            }
+        }
+        else
+        {
+            transform.position = Vector2.MoveTowards(transform.position, transform.position + (-transform.up * 100), speed * Time.deltaTime);
+            if (aliveTime >= timer)
             {
                 Destroy(gameObject);
             }

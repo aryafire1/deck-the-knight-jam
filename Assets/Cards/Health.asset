@@ -17,4 +17,4 @@ MonoBehaviour:
   cardName: Health
   icon: {fileID: 21300000, guid: 1340972abbc516143b5d135866148158, type: 3}
   duration: 3
-  effectAmount: 0
+  effectAmount: 1

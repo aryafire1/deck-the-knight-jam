@@ -16,5 +16,5 @@ MonoBehaviour:
   negType: 5
   cardName: Attack
   icon: {fileID: 21300000, guid: 1e09aa9f52082f943aa8c5c66fb1fc57, type: 3}
-  duration: 3
-  effectAmount: 0
+  duration: 10
+  effectAmount: 3

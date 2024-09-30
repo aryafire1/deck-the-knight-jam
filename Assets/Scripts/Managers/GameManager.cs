@@ -41,6 +41,7 @@ public class GameManager : MonoBehaviour
         pauseMenu.SetActive(false);
         Audios = transform.GetComponent<AudioSource>();
         Audios.volume = musicSlider.value;
+        transform.GetChild(0).gameObject.SetActive(false);
     }
 
     // Update is called once per frame

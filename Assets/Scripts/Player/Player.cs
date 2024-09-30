@@ -16,7 +16,8 @@ public class Player : MonoBehaviour
     public float jumpHeight = 6.5f;
     private KeyCode[] keys2 = { KeyCode.W, KeyCode.S, KeyCode.A, KeyCode.D };
     public float dashCooldown = 1.0f;
-    private float dashTimer = 0.0f;
+    public float dashTimer = 0.0f;
+
     private bool isGrounded = false;
     private bool airJump = false;
     public float invulTime= 1.0f;
@@ -134,7 +135,7 @@ public class Player : MonoBehaviour
     }
     public void takeDamage(int damage)
     {
-        if (invulTimer <= 0.0f)
+        if (damage > 0 && invulTimer <= 0.0f)
         {
             hit.Play();
             health -= damage;
@@ -146,6 +147,12 @@ public class Player : MonoBehaviour
                 GameManager.manager.GameOver();
             }
             StartCoroutine(Flash(5));
+        }
+        else if (damage < 0) // For healing
+        {
+            hit.Play();
+            health -= damage;
+            hpSlider.value = health;
         }
     }
     public void becomeInvul(float time)
