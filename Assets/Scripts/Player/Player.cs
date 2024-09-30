@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
 {
     public static Player player;
     public Rigidbody2D rb;
+    public int maxhealth = 3;
     public int health = 3;
     
     public Transform[] positions = new Transform[4];
@@ -153,6 +154,10 @@ public class Player : MonoBehaviour
             hit.Play();
             health -= damage;
             hpSlider.value = health;
+            if (health > maxhealth)
+            {
+                health = maxhealth;
+            }
         }
     }
     public void becomeInvul(float time)
